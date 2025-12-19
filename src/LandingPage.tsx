@@ -313,7 +313,7 @@ export default function LandingPage() {
                  <div className="relative w-full h-full transition-all duration-700 ease-out [transform-style:preserve-3d] [transform:rotateY(-12deg)_rotateX(2deg)] rounded-xl pointer-events-none">
                     
                     <img 
-                        src="https://placehold.co/800x600" 
+                        src="/assets/dashboard-preview.png" 
                         alt="Platform Preview" 
                         className="absolute inset-0 w-full h-full object-cover rounded-xl border border-gray-200/80 shadow-[0_20px_50px_rgb(0,0,0,0.1)]"
                     />
