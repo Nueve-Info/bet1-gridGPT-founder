@@ -401,15 +401,17 @@ export default function LandingPage() {
 
             {/* Video Asset */}
             <div className="max-w-5xl mx-auto">
-              <div className="w-full bg-[#111111] rounded-2xl flex flex-col items-center justify-center text-zinc-400 relative overflow-hidden group shadow-2xl aspect-video md:aspect-[21/9] border border-gray-100">
-                <iframe 
-                    src="https://player.vimeo.com/video/1148118000?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1" 
-                    className="w-full h-full"
-                    frameBorder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    title="agent-prepare"
-                ></iframe>
+              <div className="w-full bg-[#111111] rounded-2xl flex flex-col items-center justify-center text-zinc-400 relative overflow-hidden group shadow-2xl border border-gray-100">
+                <div className="w-full relative" style={{ padding: '61.43% 0 0 0' }}>
+                  <iframe 
+                      src="https://player.vimeo.com/video/1148118000?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1" 
+                      className="absolute top-0 left-0 w-full h-full"
+                      frameBorder="0" 
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      title="agent-prepare"
+                  ></iframe>
+                </div>
               </div>
               <p className="text-center text-xs sm:text-sm text-gray-400 mt-6 uppercase tracking-wider font-medium">
                 Watch the Agent in Action
