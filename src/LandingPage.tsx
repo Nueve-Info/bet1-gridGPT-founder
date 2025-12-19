@@ -281,8 +281,17 @@ export default function LandingPage() {
       </nav>
 
       {/* 1. Hero / Promise */}
-      <section ref={heroRef} className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-x-12 lg:gap-y-8 items-center">
+      <section ref={heroRef} className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/assets/hero-bg.png" 
+            alt="Hero Background" 
+            className="w-full h-full object-cover opacity-60"
+          />
+        </div>
+        
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-x-12 lg:gap-y-8 items-center relative z-10">
           <div className="space-y-6 sm:space-y-8 order-2 lg:order-1">
             <div className="space-y-3 sm:space-y-4">
               <h1 className="hero-animate text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1]">
