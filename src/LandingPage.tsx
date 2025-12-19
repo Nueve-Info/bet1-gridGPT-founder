@@ -24,6 +24,7 @@ export default function LandingPage() {
   const contextRef = useRef<HTMLElement>(null);
   const engineRef = useRef<HTMLElement>(null);
   const pipelineRef = useRef<HTMLElement>(null);
+  const testimonialsRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
     // Hero Animation
@@ -264,6 +265,36 @@ export default function LandingPage() {
                 }
             }
         );
+    }
+
+    // Testimonials Animation
+    if (testimonialsRef.current) {
+        gsap.from(testimonialsRef.current.querySelector(".text-center"), {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: testimonialsRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from(testimonialsRef.current.querySelectorAll(".grid > div"), {
+            y: 50,
+            opacity: 0,
+            scale: 0.9,
+            rotationX: 10,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: testimonialsRef.current.querySelector(".grid"),
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
     }
   }, { scope: undefined });
 
@@ -607,7 +638,7 @@ export default function LandingPage() {
       </section>
 
       {/* 5. Testimonials section */}
-      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-gray-100 bg-white">
+      <section ref={testimonialsRef} className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-gray-100 bg-white">
         <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 space-y-4">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111]">Customer testimonials</h2>
