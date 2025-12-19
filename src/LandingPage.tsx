@@ -296,9 +296,9 @@ export default function LandingPage() {
                 <Button className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto">Join the waitlist</Button>
             </div>
           </div>
-          <div className="hero-animate relative w-full flex items-center justify-center order-1 lg:order-2">
+          <div className="hero-animate relative w-full flex items-center justify-center lg:justify-end order-1 lg:order-2">
             {/* Tilt Container */}
-            <Tilt className="w-full max-w-[640px] group" rotationFactor={8} perspective={2000}>
+            <Tilt className="w-full max-w-[640px] lg:max-w-none lg:scale-[1.2] lg:origin-center group" rotationFactor={8} perspective={2000}>
                 {/* 3D Rotated Card (Base static skew + Dynamic tilt) */}
                 {/* Note: We apply the static skew to a wrapper, and let Tilt handle the dynamic part, OR we combine them. */}
                 {/* Since Tilt component wraps children in a transform div, we need to be careful not to conflict transforms. */}
