@@ -296,9 +296,9 @@ export default function LandingPage() {
                 <Button className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto">Join the waitlist</Button>
             </div>
           </div>
-          <div className="hero-animate relative aspect-[4/3] w-full flex items-center justify-center order-1 lg:order-2">
+          <div className="hero-animate relative w-full flex items-center justify-center order-1 lg:order-2">
             {/* Tilt Container */}
-            <Tilt className="w-[640px] h-full group" rotationFactor={8} perspective={2000}>
+            <Tilt className="w-full max-w-[640px] group" rotationFactor={8} perspective={2000}>
                 {/* 3D Rotated Card (Base static skew + Dynamic tilt) */}
                 {/* Note: We apply the static skew to a wrapper, and let Tilt handle the dynamic part, OR we combine them. */}
                 {/* Since Tilt component wraps children in a transform div, we need to be careful not to conflict transforms. */}
@@ -310,12 +310,11 @@ export default function LandingPage() {
                 {/* For simplicity, I will inline the specific logic for this hero card instead of using the generic component, 
                     OR I'll use the generic component and wrap the skewed content inside it. */}
 
-                 <div className="relative w-full h-full transition-all duration-700 ease-out [transform-style:preserve-3d] [transform:rotateY(-12deg)_rotateX(2deg)] rounded-xl pointer-events-none">
-                    
+                 <div className="relative w-full transition-all duration-700 ease-out [transform-style:preserve-3d] [transform:rotateY(-12deg)_rotateX(2deg)] rounded-xl pointer-events-none">
                     <img 
                         src="/assets/dashboard-preview.png" 
                         alt="Platform Preview" 
-                        className="absolute inset-0 w-full h-full object-cover rounded-xl border border-gray-200/80 shadow-[0_20px_50px_rgb(0,0,0,0.1)]"
+                        className="w-full h-auto rounded-xl border border-gray-200/80 shadow-[0_20px_50px_rgb(0,0,0,0.1)]"
                     />
                 </div>
             </Tilt>
