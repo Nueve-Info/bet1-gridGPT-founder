@@ -331,17 +331,15 @@ export default function LandingPage() {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111]">
                     These leads were found for you
                 </h2>
-                <div className="flex-1 bg-gray-100 rounded-3xl flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden min-h-[300px] relative">
-                     <div className="w-full" style={{ padding: '49.75% 0 0 0', position: 'relative' }}>
+                <div className="flex-1 bg-[#111111] rounded-3xl flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden min-h-[300px] relative">
                         <iframe 
                             src="https://player.vimeo.com/video/1148118071?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1" 
+                            className="absolute inset-0 w-full h-full scale-[1.02] object-cover"
                             frameBorder="0" 
                             allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
                             referrerPolicy="strict-origin-when-cross-origin"
-                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
                             title="table-animation"
                         ></iframe>
-                     </div>
                 </div>
             </div>
 
