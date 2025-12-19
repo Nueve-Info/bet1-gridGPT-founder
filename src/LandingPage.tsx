@@ -285,7 +285,7 @@ export default function LandingPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/assets/hero-bg.png" 
+            src="/assets/hero-bg-v2.png" 
             alt="Hero Background" 
             className="w-full h-full object-cover opacity-60"
           />
