@@ -502,13 +502,14 @@ export default function LandingPage() {
                           <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
                           <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
                       </div>
-                      <div className="aspect-video w-full rounded-lg overflow-hidden border border-white/10 bg-black opacity-90">
+                      <div className="w-full rounded-lg overflow-hidden border border-white/10 bg-black opacity-90 relative" style={{ padding: '60.88% 0 0 0' }}>
                         <iframe 
-                          src="https://player.vimeo.com/video/1148053302?autoplay=1&loop=1&muted=1&background=1" 
-                          className="w-full h-full"
+                          src="https://player.vimeo.com/video/1148118015?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1" 
+                          className="absolute top-0 left-0 w-full h-full"
                           frameBorder="0" 
-                          allow="autoplay; fullscreen; picture-in-picture" 
-                          allowFullScreen
+                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          title="ai-agent-chat"
                         ></iframe>
                       </div>
                     </div>
