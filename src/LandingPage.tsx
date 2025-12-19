@@ -323,7 +323,7 @@ export default function LandingPage() {
                     <img 
                         src="/assets/dashboard-preview.png" 
                         alt="Platform Preview" 
-                        className="w-full h-auto rounded-xl border border-gray-200/80 shadow-[0_20px_50px_rgb(0,0,0,0.1)]"
+                        className="w-full h-auto rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(255,255,255,0.3)]"
                     />
                 </div>
             </Tilt>
