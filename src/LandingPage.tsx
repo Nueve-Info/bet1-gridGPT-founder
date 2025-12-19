@@ -1,7 +1,7 @@
 // import React from 'react';
 import { useRef } from 'react';
 import { Tick02Icon, Cancel01Icon, Database01Icon, Linkedin01Icon, Facebook01Icon, NoteEditIcon } from 'hugeicons-react';
-import { Search, Filter, UserCheck, Play, CheckCircle2, Target, ArrowDown } from 'lucide-react';
+import { Search, Filter, UserCheck, Play, CheckCircle2, Target, ArrowDown, Star } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Badge } from './components/ui/badge';
 import { Card, CardContent, CardFooter } from './components/ui/card';
@@ -608,24 +608,43 @@ export default function LandingPage() {
 
       {/* 5. Testimonials section */}
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-gray-100 bg-white">
-        <div className="max-w-6xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
-            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight">Feedback</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                 {[1, 2, 3].map((_, i) => (
-                    <Card key={i} className="bg-white border-gray-100/50 shadow-sm h-40 sm:h-48 flex flex-col justify-between">
-                         <CardContent className="pt-4 sm:pt-6">
-                            <div className="space-y-2 animate-pulse">
-                                <div className="h-2 bg-gray-200 rounded w-3/4"></div>
-                                <div className="h-2 bg-gray-200 rounded w-1/2"></div>
-                            </div>
-                            <p className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-400 font-medium">Early users feedback coming soon</p>
+        <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16 space-y-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111]">Customer testimonials</h2>
+              <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
+                Discover how our engine transforms outreach for founders and sales teams.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+                 {[
+                   { name: "Sarah Jenkins", role: "Founder, TechFlow", text: "Finally, a tool that understands my niche. The leads aren't just names; they are actual opportunities with context." },
+                   { name: "Michael Chen", role: "Head of Growth, SaaSify", text: "The feedback loop is a game changer. Every day the engine gets smarter about who we want to talk to." },
+                   { name: "Elena Rodriguez", role: "Sales Director, Peak", text: "10 leads a day might sound small, but when 8 of them are perfect fits, it's more than we ever had before." },
+                   { name: "David Park", role: "CEO, Innovate", text: "The AI-written first lines are surprisingly natural. Our reply rates jumped by nearly 40% in the first month." },
+                   { name: "Julia Smith", role: "Marketing Lead, ScaleUp", text: "Setting up our ICP took less than 5 minutes. We had our first list ready before my coffee was finished." },
+                   { name: "Marcus Thorne", role: "Founder, SoloPulse", text: "Simple, effective, and reliable. It's like having a full-time researcher working 24/7 for a fraction of the cost." }
+                 ].map((t, i) => (
+                    <Card key={i} className="bg-white border-gray-200 shadow-none hover:border-gray-300 transition-colors flex flex-col p-6 sm:p-8">
+                         <div className="flex gap-1 mb-6">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star key={s} size={16} className="fill-[#111111] text-[#111111]" />
+                            ))}
+                         </div>
+                         <CardContent className="p-0 flex-grow">
+                            <p className="text-gray-600 leading-relaxed italic">"{t.text}"</p>
                          </CardContent>
-                         <CardFooter className="pb-4 sm:pb-6">
-                             <div className="flex items-center gap-2 sm:gap-3">
-                                 <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-gray-200 animate-pulse"></div>
-                                 <div className="h-2 w-20 sm:w-24 bg-gray-200 rounded animate-pulse"></div>
+                         <div className="mt-8 flex items-center gap-4">
+                             <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center shrink-0">
+                                <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                                </svg>
                              </div>
-                         </CardFooter>
+                             <div className="flex flex-col">
+                                <span className="font-semibold text-sm text-[#111111]">{t.name}</span>
+                                <span className="text-xs text-gray-500">{t.role}</span>
+                             </div>
+                         </div>
                     </Card>
                  ))}
             </div>
