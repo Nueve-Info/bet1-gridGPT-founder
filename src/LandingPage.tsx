@@ -402,20 +402,14 @@ export default function LandingPage() {
             {/* Video Asset */}
             <div className="max-w-5xl mx-auto">
               <div className="w-full bg-[#111111] rounded-2xl flex flex-col items-center justify-center text-zinc-400 relative overflow-hidden group shadow-2xl aspect-video md:aspect-[21/9] border border-gray-100">
-                <div className="absolute inset-0 bg-zinc-800 opacity-50"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-700/30 to-zinc-900/80"></div>
-                
-                <div className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform cursor-pointer shadow-lg shadow-white/5">
-                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white fill-white ml-1" />
-                </div>
-                
-                <span className="relative z-10 mt-4 text-xs sm:text-sm font-mono uppercase tracking-widest text-zinc-300 font-medium bg-black/30 px-3 py-1 rounded-full border border-white/10">
-                  Agent Workflow Demo (Video)
-                </span>
-                
-                <div className="absolute bottom-6 left-6 right-6 h-1 bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full w-1/3 bg-white rounded-full"></div>
-                </div>
+                <iframe 
+                    src="https://player.vimeo.com/video/1148118000?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1" 
+                    className="w-full h-full"
+                    frameBorder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="agent-prepare"
+                ></iframe>
               </div>
               <p className="text-center text-xs sm:text-sm text-gray-400 mt-6 uppercase tracking-wider font-medium">
                 Watch the Agent in Action
