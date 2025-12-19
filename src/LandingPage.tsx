@@ -331,13 +331,16 @@ export default function LandingPage() {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111]">
                     These leads were found for you
                 </h2>
-                <div className="flex-1 bg-gray-100 rounded-3xl flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden min-h-[300px]">
-                     <div className="w-16 h-16 text-gray-300">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                            <circle cx="9" cy="9" r="2" />
-                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                        </svg>
+                <div className="flex-1 bg-gray-100 rounded-3xl flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden min-h-[300px] relative">
+                     <div className="w-full" style={{ padding: '49.75% 0 0 0', position: 'relative' }}>
+                        <iframe 
+                            src="https://player.vimeo.com/video/1148118071?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1" 
+                            frameBorder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
+                            title="table-animation"
+                        ></iframe>
                      </div>
                 </div>
             </div>
