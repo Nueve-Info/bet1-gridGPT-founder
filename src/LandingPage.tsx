@@ -293,13 +293,9 @@ export default function LandingPage() {
         }
     }
 
-    // Features Animation (now Metrics Section)
+    // Features Animation (Metrics Section)
     if (featuresRef.current) {
-        gsap.from(featuresRef.current.querySelector("h2"), {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out",
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: featuresRef.current,
                 start: "top 75%",
@@ -307,19 +303,26 @@ export default function LandingPage() {
             }
         });
 
-        gsap.from(featuresRef.current.querySelectorAll(".space-y-10 > div"), {
-            y: 40,
+        tl.from(featuresRef.current.querySelector("h2"), {
+            y: 30,
             opacity: 0,
             duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out",
-            delay: 0.2,
-            scrollTrigger: {
-                trigger: featuresRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
-        });
+            ease: "power3.out"
+        })
+        .from(featuresRef.current.querySelectorAll(".space-y-10 > div"), {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out"
+        }, "-=0.4")
+        .from(featuresRef.current.querySelectorAll(".group > div"), {
+            opacity: 0,
+            scale: 0.95,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power2.out"
+        }, "-=0.6");
     }
 
     // Testimonials Animation
