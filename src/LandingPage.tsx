@@ -245,27 +245,78 @@ export default function LandingPage() {
         }
     }
 
-    // Features Animation
+    // Features Animation (now Metrics Section)
     if (featuresRef.current) {
-        const featureCards = featuresRef.current.querySelectorAll(".feature-card");
-        gsap.fromTo(featureCards,
-            {
-                y: 50,
-                opacity: 0
-            },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: featuresRef.current,
-                    start: "top 75%",
-                    toggleActions: "play none none reverse"
-                }
+        gsap.from(featuresRef.current.querySelector("h2"), {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: featuresRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse"
             }
-    // Testimonials Animation removed for visibility reliability
+        });
+
+        gsap.from(featuresRef.current.querySelectorAll(".space-y-10 > div"), {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.2,
+            scrollTrigger: {
+                trigger: featuresRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from(featuresRef.current.querySelectorAll(".lg\\:flex > div"), {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power2.out",
+            delay: 0.4,
+            scrollTrigger: {
+                trigger: featuresRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    }
+
+    // Testimonials Animation
+    if (testimonialsRef.current) {
+        gsap.from(testimonialsRef.current.querySelector(".text-center"), {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: testimonialsRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        gsap.from(testimonialsRef.current.querySelectorAll(".grid > div"), {
+            y: 50,
+            opacity: 0,
+            scale: 0.9,
+            rotationX: 10,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: testimonialsRef.current.querySelector(".grid"),
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    }
   }, { scope: undefined });
 
   return (
@@ -550,59 +601,73 @@ export default function LandingPage() {
           </div>
         </section>
 
-      {/* 4. Features / Factors of value */}
-      <section ref={featuresRef} className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto space-y-12">
-             <div className="space-y-4 max-w-2xl">
-                <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#111111]">Why this works</h2>
-                <p className="text-lg sm:text-xl text-gray-500 font-light leading-relaxed">
-                    Quality over quantity. We focus on the factors that actually convert.
-                </p>
+      {/* 4. Metrics / Proof Section */}
+      <section ref={featuresRef} className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-[#f5f5f5]">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Column: Content */}
+            <div className="space-y-12 sm:space-y-16">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] leading-tight">
+                    And leads get better everyday
+                </h2>
+
+                <div className="space-y-10 sm:space-y-12">
+                    {/* Metric 1 */}
+                    <div className="space-y-3">
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-6xl sm:text-7xl font-bold tracking-tighter text-[#111111]">14</span>
+                            <span className="text-2xl sm:text-3xl font-bold text-[#111111]">days</span>
+                        </div>
+                        <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-sm">
+                            is all our AI needs to learn your preferences and hand over perfect leads
+                        </p>
+                    </div>
+
+                    {/* Metric 2 */}
+                    <div className="space-y-3">
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-6xl sm:text-7xl font-bold tracking-tighter text-[#111111]">8/10</span>
+                            <span className="text-2xl sm:text-3xl font-bold text-[#111111]">leads</span>
+                        </div>
+                        <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-sm">
+                            Our target after 14 days of feedback. At least 80% of leads match your ICP. Guaranteed.
+                        </p>
+                    </div>
+
+                    {/* Metric 3 */}
+                    <div className="space-y-3">
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-6xl sm:text-7xl font-bold tracking-tighter text-[#111111]">2</span>
+                            <span className="text-2xl sm:text-3xl font-bold text-[#111111]">minutes</span>
+                        </div>
+                        <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-sm">
+                            to set your ICP criteria and generate your first lead list.
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-6 gap-4 sm:gap-6">
-                 {/* Card 1: 2 minutes - Top Left - Spans 2 cols */}
-                 <div className="feature-card md:col-span-2 bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col justify-between min-h-[280px] transition-all hover:shadow-sm">
-                      <div className="mt-8 space-y-2">
-                           <h3 className="flex flex-wrap items-baseline gap-2 font-medium tracking-tighter text-[#111111]"><span className="text-7xl sm:text-8xl">2</span><span className="text-2xl sm:text-3xl font-bold text-[#111111]">minutes</span></h3>
-                           <p className="text-gray-500 leading-relaxed text-lg">to set your ICP criteria and generate your first lead list.</p>
-                      </div>
-                 </div>
-
-                 {/* Card 2: 8/10 leads - Top Right - Spans 4 cols (Wide) */}
-                 <div className="feature-card md:col-span-4 bg-[#fcfcfc] border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col justify-center min-h-[280px] transition-all hover:shadow-sm relative overflow-hidden">
-                      <div className="absolute inset-0 z-0">
-                          <img src="/assets/quality-card-bg.png" alt="Background" className="w-full h-full object-cover opacity-100" />
-                      </div>
-                      <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12 relative z-10">
-                           <h3 className="flex flex-wrap items-baseline gap-2 font-medium tracking-tighter text-[#111111] whitespace-nowrap"><span className="text-7xl sm:text-8xl">8/10</span><span className="text-2xl sm:text-3xl font-bold text-[#111111]">leads</span></h3>
-                           <p className="text-gray-500 leading-relaxed text-lg max-w-md">Our target after 14 days of feedback. At least 80% of leads match your ICP. Guaranteed.</p>
-                      </div>
-                 </div>
-
-                 {/* Card 3: 3 minutes/day - Bottom Left - Spans 2 cols */}
-                 <div className="feature-card md:col-span-2 bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col justify-between min-h-[280px] transition-all hover:shadow-sm">
-                      <div className="mt-8 space-y-2">
-                           <h3 className="flex flex-wrap items-baseline gap-2 font-medium tracking-tighter text-[#111111]"><span className="text-7xl sm:text-8xl">3</span><span className="text-2xl sm:text-3xl font-bold text-[#111111]">minutes/day</span></h3>
-                           <p className="text-gray-500 leading-relaxed text-lg">to review leads with <span className="inline-flex items-center justify-center w-5 h-5 rounded-[4px] bg-[#111111] text-white align-middle mx-1"><Tick02Icon size={12} /></span>/<span className="inline-flex items-center justify-center w-5 h-5 rounded-[4px] bg-[#111111] text-white align-middle mx-1"><Cancel01Icon size={12} /></span> feedback - we handle the rest.</p>
-                      </div>
-                 </div>
-
-                 {/* Card 4: 83% - Bottom Middle - Spans 2 cols */}
-                 <div className="feature-card md:col-span-2 bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col justify-between min-h-[280px] transition-all hover:shadow-sm">
-                      <div className="mt-8 space-y-2">
-                           <h3 className="flex flex-wrap items-baseline gap-1 font-medium tracking-tighter text-[#111111]"><span className="text-7xl sm:text-8xl">83</span><span className="text-6xl sm:text-7xl font-medium text-[#111111]">%</span></h3>
-                           <p className="text-gray-500 leading-relaxed text-lg">Users report higher reply rates when using our AI-written first lines + context notes.</p>
-                      </div>
-                 </div>
-
-                 {/* Card 5: 10 leads - Bottom Right - Spans 2 cols */}
-                 <div className="feature-card md:col-span-2 bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col justify-between min-h-[280px] transition-all hover:shadow-sm">
-                      <div className="mt-8 space-y-2">
-                           <h3 className="flex flex-wrap items-baseline gap-2 font-medium tracking-tighter text-[#111111]"><span className="text-7xl sm:text-8xl">10</span><span className="text-2xl sm:text-3xl font-bold text-[#111111]">leads</span></h3>
-                           <p className="text-gray-500 leading-relaxed text-lg">delivered to your inbox daily - ready to contact.</p>
-                      </div>
-                 </div>
+            {/* Right Column: Visuals */}
+            <div className="relative hidden lg:flex items-center justify-center h-[500px]">
+                {/* Abstract Layered Cards */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] bg-gray-200/50 rounded-2xl flex items-center justify-center transform -rotate-3 z-0">
+                    <div className="w-16 h-16 text-gray-300">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                            <circle cx="9" cy="9" r="2" />
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                        </svg>
+                    </div>
+                </div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/4 -translate-y-1/4 w-[340px] h-[340px] bg-gray-200 rounded-2xl flex items-center justify-center shadow-sm z-10">
+                    <div className="w-16 h-16 text-gray-300">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                            <circle cx="9" cy="9" r="2" />
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
       </section>
@@ -617,41 +682,54 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-y-4 md:gap-y-0 md:gap-x-6 lg:gap-x-8 grid-flow-dense">
-                 {[
-                   { id: 1, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-8 md:-translate-y-4", z: "z-10" },
-                   { id: 8, span: "lg:col-span-4 md:col-span-4", offset: "lg:translate-y-12 md:translate-y-6", z: "z-0" },
-                   { id: 13, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-4 md:-translate-y-2", z: "z-10" },
-                   { id: 2, span: "lg:col-span-3 md:col-span-4", offset: "lg:translate-y-6 md:translate-y-3 lg:-translate-x-4", z: "z-20" },
-                   { id: 9, span: "lg:col-span-6 md:col-span-8", offset: "lg:-translate-y-16 md:-translate-y-8", z: "z-10" },
-                   { id: 14, span: "lg:col-span-3 md:col-span-4", offset: "lg:translate-y-10 md:translate-y-5 lg:translate-x-6", z: "z-20" },
-                   { id: 3, span: "lg:col-span-5 md:col-span-6", offset: "lg:-translate-y-10 md:-translate-y-5", z: "z-0" },
-                   { id: 10, span: "lg:col-span-7 md:col-span-6", offset: "lg:translate-y-4 md:translate-y-2 lg:-translate-x-8", z: "z-30" },
-                   { id: 4, span: "lg:col-span-4 md:col-span-4", offset: "lg:translate-y-14 md:translate-y-7", z: "z-10" },
-                   { id: 11, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-20 md:-translate-y-10", z: "z-0" },
-                   { id: 15, span: "lg:col-span-4 md:col-span-4", offset: "lg:translate-y-8 md:translate-y-4", z: "z-10" },
-                   { id: 5, span: "lg:col-span-6 md:col-span-6", offset: "lg:-translate-y-6 md:-translate-y-3", z: "z-20" },
-                   { id: 12, span: "lg:col-span-6 md:col-span-6", offset: "lg:translate-y-16 md:translate-y-8 lg:translate-x-12", z: "z-10" },
-                   { id: 6, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-12 md:-translate-y-6", z: "z-0" },
-                   { id: 7, span: "lg:col-span-8 md:col-span-8", offset: "lg:translate-y-6 md:translate-y-3", z: "z-10" },
-                 ].map((t) => (
-                    <div key={t.id} className={cn(
-                        "relative transition-all duration-500 hover:scale-[1.02] transform-gpu",
-                        t.span,
-                        // Apply offsets only from md up
-                        t.offset.split(' ').filter(c => c.startsWith('lg:') || c.startsWith('md:')).join(' '),
-                        t.z,
-                        "mb-4 md:mb-12 lg:mb-16" // Responsive bottom margin
-                    )}>
-                        <Card className="bg-transparent border-0 shadow-none overflow-hidden p-0">
-                             <img 
-                                src={`/assets/testimonials/t${t.id}.png`} 
-                                alt="" 
-                                className="w-full h-auto drop-shadow-2xl" 
-                             />
-                        </Card>
-                    </div>
-                 ))}
+            <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
+                 {/* Column 1 */}
+                 <div className="flex-1 space-y-6 sm:space-y-8">
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                        <div key={num} className={cn(
+                            "transition-all duration-500 hover:scale-[1.02]",
+                            num === 2 && "md:mt-12",
+                            num === 4 && "md:ml-4",
+                            num === 6 && "md:-ml-2"
+                        )}>
+                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
+                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                            </Card>
+                        </div>
+                    ))}
+                 </div>
+
+                 {/* Column 2 */}
+                 <div className="flex-1 space-y-6 sm:space-y-8 md:mt-12">
+                    {[8, 9, 10, 11, 12].map((num) => (
+                        <div key={num} className={cn(
+                            "transition-all duration-500 hover:scale-[1.02]",
+                            num === 9 && "md:mr-6",
+                            num === 10 && "md:scale-110 md:z-10",
+                            num === 11 && "md:ml-8"
+                        )}>
+                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
+                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                            </Card>
+                        </div>
+                    ))}
+                 </div>
+
+                 {/* Column 3 */}
+                 <div className="flex-1 space-y-6 sm:space-y-8">
+                    {[13, 14, 15, 7].map((num) => (
+                        <div key={num} className={cn(
+                            "transition-all duration-500 hover:scale-[1.02]",
+                            num === 13 && "md:mt-4",
+                            num === 15 && "md:mr-4",
+                            num === 7 && "md:scale-105"
+                        )}>
+                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
+                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                            </Card>
+                        </div>
+                    ))}
+                 </div>
             </div>
         </div>
       </section>
