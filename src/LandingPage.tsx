@@ -648,18 +648,54 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="columns-1 sm:columns-2 md:columns-3 gap-6 sm:gap-8 space-y-6 sm:space-y-8">
-                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((num) => (
-                    <div key={num} className="break-inside-avoid">
-                        <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden group hover:border-white/20 transition-all duration-300">
-                             <img 
-                                src={`/assets/testimonials/t${num}.png`} 
-                                alt={`Testimonial ${num}`} 
-                                className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]" 
-                             />
-                        </Card>
-                    </div>
-                 ))}
+            <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
+                 {/* Column 1 */}
+                 <div className="flex-1 space-y-6 sm:space-y-8">
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                        <div key={num} className={cn(
+                            "transition-all duration-500 hover:scale-[1.02]",
+                            num === 2 && "md:mt-12",
+                            num === 4 && "md:ml-4",
+                            num === 6 && "md:-ml-2"
+                        )}>
+                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
+                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                            </Card>
+                        </div>
+                    ))}
+                 </div>
+
+                 {/* Column 2 */}
+                 <div className="flex-1 space-y-6 sm:space-y-8 md:mt-12">
+                    {[8, 9, 10, 11, 12].map((num) => (
+                        <div key={num} className={cn(
+                            "transition-all duration-500 hover:scale-[1.02]",
+                            num === 9 && "md:mr-6",
+                            num === 10 && "md:scale-110 md:z-10",
+                            num === 11 && "md:ml-8"
+                        )}>
+                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
+                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                            </Card>
+                        </div>
+                    ))}
+                 </div>
+
+                 {/* Column 3 */}
+                 <div className="flex-1 space-y-6 sm:space-y-8">
+                    {[13, 14, 15, 7].map((num) => (
+                        <div key={num} className={cn(
+                            "transition-all duration-500 hover:scale-[1.02]",
+                            num === 13 && "md:mt-4",
+                            num === 15 && "md:mr-4",
+                            num === 7 && "md:scale-105"
+                        )}>
+                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
+                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                            </Card>
+                        </div>
+                    ))}
+                 </div>
             </div>
         </div>
       </section>
