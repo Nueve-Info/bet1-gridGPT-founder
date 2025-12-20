@@ -458,12 +458,12 @@ export default function LandingPage() {
                 ].map((logo, i) => (
                     <div 
                         key={i} 
-                        className="logo-grid-item aspect-square bg-[#9ca3af] rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 group hover:bg-[#8b929e] transition-colors duration-300"
+                        className="logo-grid-item aspect-square bg-white border border-gray-100 rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 group hover:border-gray-200 shadow-sm transition-all duration-300"
                     >
                         <img 
                             src={logo.src} 
                             alt={logo.name} 
-                            className="w-full h-full object-contain filter brightness-0 opacity-80 group-hover:opacity-100 transition-opacity" 
+                            className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
                         />
                     </div>
                 ))}
