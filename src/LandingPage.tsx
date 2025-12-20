@@ -718,9 +718,9 @@ export default function LandingPage() {
                                 key={id}
                                 className={cn(
                                     "absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] rounded-3xl border flex items-center justify-center transition-all duration-500 ease-out overflow-hidden bg-white",
-                                    position === 0 && "z-30 scale-100 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[#111111]/10 opacity-100 translate-x-12 translate-y-12 rotate-1",
-                                    position === 1 && "z-20 scale-95 shadow-lg border-[#111111]/5 opacity-80 translate-x-0 translate-y-0 rotate-[-1deg]",
-                                    position === 2 && "z-10 scale-90 shadow-sm border-[#111111]/5 opacity-40 -translate-x-12 -translate-y-12 rotate-[-3deg]"
+                                    position === 0 && "z-30 scale-100 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[#111111]/10 opacity-100 lg:translate-x-28 lg:translate-y-28 md:translate-x-20 md:translate-y-20 translate-x-12 translate-y-12 rotate-2",
+                                    position === 1 && "z-20 scale-95 shadow-lg border-[#111111]/5 opacity-90 lg:translate-x-0 lg:translate-y-0 md:translate-x-0 md:translate-y-0 translate-x-0 translate-y-0 rotate-[-1deg]",
+                                    position === 2 && "z-10 scale-90 shadow-sm border-[#111111]/5 opacity-60 lg:-translate-x-28 lg:-translate-y-28 md:-translate-x-20 md:-translate-y-20 -translate-x-12 -translate-y-12 rotate-[-4deg]"
                                 )}
                             >
                                 <div className={cn(
