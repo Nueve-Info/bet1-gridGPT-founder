@@ -905,12 +905,11 @@ export default function LandingPage() {
 
       <footer className="py-8 sm:py-10 md:py-12 px-4 sm:px-6 border-t border-gray-100 bg-white text-xs sm:text-sm text-gray-500">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="order-2 sm:order-1">© 2025 Product Name. All rights reserved.</div>
+            <div className="order-2 sm:order-1">© 2025 GridGPT. All rights reserved.</div>
             <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
                 <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
                 <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
-                <a href="#" className="hover:text-gray-900 transition-colors">Twitter</a>
-            </div>
+                            </div>
         </div>
       </footer>
     </div>
