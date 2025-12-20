@@ -272,20 +272,6 @@ export default function LandingPage() {
                 toggleActions: "play none none reverse"
             }
         });
-
-        gsap.from(featuresRef.current.querySelectorAll(".lg\\:flex > div"), {
-            scale: 0.9,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power2.out",
-            delay: 0.4,
-            scrollTrigger: {
-                trigger: featuresRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
-        });
     }
 
     // Testimonials Animation
@@ -648,9 +634,9 @@ export default function LandingPage() {
             </div>
 
             {/* Right Column: Visuals */}
-            <div className="relative hidden lg:flex items-center justify-center h-[500px]">
-                {/* Abstract Layered Cards */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] bg-gray-200/50 rounded-2xl flex items-center justify-center transform -rotate-3 z-0">
+            <div className="relative flex items-center justify-center h-[400px] sm:h-[500px] lg:h-[600px] mt-12 lg:mt-0 group">
+                {/* Back Card (Top Left) */}
+                <div className="absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] bg-white/40 backdrop-blur-sm rounded-3xl border border-[#111111]/5 flex items-center justify-center -rotate-2 -translate-x-16 -translate-y-16 transition-all duration-500 group-hover:-translate-x-20 group-hover:-translate-y-20 z-0 overflow-hidden shadow-sm">
                     <div className="w-16 h-16 text-gray-300">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                             <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
@@ -659,8 +645,9 @@ export default function LandingPage() {
                         </svg>
                     </div>
                 </div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/4 -translate-y-1/4 w-[340px] h-[340px] bg-gray-200 rounded-2xl flex items-center justify-center shadow-sm z-10">
-                    <div className="w-16 h-16 text-gray-300">
+                {/* Front Card (Bottom Right) */}
+                <div className="absolute w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] bg-white rounded-3xl border border-[#111111]/10 flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.08)] rotate-1 translate-x-12 translate-y-12 transition-all duration-500 group-hover:translate-x-16 group-hover:translate-y-16 z-10 overflow-hidden">
+                    <div className="w-20 h-20 text-gray-200">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                             <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                             <circle cx="9" cy="9" r="2" />
