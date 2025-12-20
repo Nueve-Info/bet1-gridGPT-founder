@@ -265,38 +265,7 @@ export default function LandingPage() {
                     toggleActions: "play none none reverse"
                 }
             }
-        );
-    }
-
-    // Testimonials Animation
-    if (testimonialsRef.current) {
-        gsap.from(testimonialsRef.current.querySelector(".text-center"), {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: testimonialsRef.current,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-            }
-        });
-
-        gsap.from(testimonialsRef.current.querySelectorAll(".grid > div"), {
-            y: 50,
-            opacity: 0,
-            scale: 0.9,
-            rotationX: 10,
-            duration: 1,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: testimonialsRef.current.querySelector(".grid"),
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            }
-        });
-    }
+    // Testimonials Animation removed for visibility reliability
   }, { scope: undefined });
 
   return (
