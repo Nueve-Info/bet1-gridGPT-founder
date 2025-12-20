@@ -29,6 +29,17 @@ export default function LandingPage() {
   const introRef = useRef<HTMLElement>(null);
   const [count, setCount] = useState(0);
   const [hasCounted, setHasCounted] = useState(false);
+  
+  // Carousel state for the metrics section
+  const [cardOrder, setCardOrder] = useState([0, 1, 2]); // [Front, Middle, Back]
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const swapCards = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCardOrder(prev => [prev[2], prev[0], prev[1]]);
+    setTimeout(() => setIsAnimating(false), 600);
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined' || !introRef.current || hasCounted) return;
@@ -693,28 +704,42 @@ export default function LandingPage() {
                 </div>
             </div>
 
-            {/* Right Column: Visuals */}
-            <div className="relative flex items-center justify-center h-[400px] sm:h-[500px] lg:h-[600px] mt-12 lg:mt-0 group">
-                {/* Back Card (Top Left) */}
-                <div className="absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] bg-white/40 backdrop-blur-sm rounded-3xl border border-[#111111]/5 flex items-center justify-center -rotate-2 -translate-x-16 -translate-y-16 transition-all duration-500 group-hover:-translate-x-20 group-hover:-translate-y-20 z-0 overflow-hidden shadow-sm">
-                    <div className="w-16 h-16 text-gray-300">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                            <circle cx="9" cy="9" r="2" />
-                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                        </svg>
-                    </div>
-                </div>
-                {/* Front Card (Bottom Right) */}
-                <div className="absolute w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] bg-white rounded-3xl border border-[#111111]/10 flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.08)] rotate-1 translate-x-12 translate-y-12 transition-all duration-500 group-hover:translate-x-16 group-hover:translate-y-16 z-10 overflow-hidden">
-                    <div className="w-20 h-20 text-gray-200">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                            <circle cx="9" cy="9" r="2" />
-                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                        </svg>
-                    </div>
-                </div>
+            {/* Right Column: Visuals - 3 Card Carousel Swap */}
+            <div className="relative flex items-center justify-center h-[400px] sm:h-[500px] lg:h-[600px] mt-12 lg:mt-0">
+                <button 
+                    onClick={swapCards}
+                    className="relative w-full h-full flex items-center justify-center cursor-pointer group outline-none"
+                    aria-label="Next testimonial"
+                >
+                    {[0, 1, 2].map((id) => {
+                        const position = cardOrder.indexOf(id); // 0 = Front, 1 = Middle, 2 = Back
+                        return (
+                            <div 
+                                key={id}
+                                className={cn(
+                                    "absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] rounded-3xl border flex items-center justify-center transition-all duration-500 ease-out overflow-hidden bg-white",
+                                    position === 0 && "z-30 scale-100 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[#111111]/10 opacity-100 translate-x-12 translate-y-12 rotate-1",
+                                    position === 1 && "z-20 scale-95 shadow-lg border-[#111111]/5 opacity-80 translate-x-0 translate-y-0 rotate-[-1deg]",
+                                    position === 2 && "z-10 scale-90 shadow-sm border-[#111111]/5 opacity-40 -translate-x-12 -translate-y-12 rotate-[-3deg]"
+                                )}
+                            >
+                                <div className={cn(
+                                    "w-16 h-16 sm:w-20 sm:h-20 transition-colors duration-500",
+                                    position === 0 ? "text-gray-200" : "text-gray-100"
+                                )}>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                        <circle cx="9" cy="9" r="2" />
+                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                    </svg>
+                                </div>
+                                {/* Subtle decorative elements to distinguish cards */}
+                                <div className="absolute top-4 left-6 right-6 h-1 bg-gray-50 rounded-full overflow-hidden opacity-20"></div>
+                                <div className="absolute bottom-6 left-6 w-1/2 h-1 bg-gray-50 rounded-full overflow-hidden opacity-20"></div>
+                            </div>
+                        );
+                    })}
+                </button>
             </div>
         </div>
       </section>
