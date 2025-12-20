@@ -1,5 +1,5 @@
 // import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Tick02Icon, Cancel01Icon, Database01Icon, Linkedin01Icon, Facebook01Icon, NoteEditIcon } from 'hugeicons-react';
 import { Search, Filter, UserCheck, Play, CheckCircle2, Target, ArrowDown, Star } from 'lucide-react';
 import { Button } from './components/ui/button';
@@ -26,6 +26,54 @@ export default function LandingPage() {
   const engineRef = useRef<HTMLElement>(null);
   const pipelineRef = useRef<HTMLElement>(null);
   const testimonialsRef = useRef<HTMLElement>(null);
+  const introRef = useRef<HTMLElement>(null);
+  const [count, setCount] = useState(0);
+  const [hasCounted, setHasCounted] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !introRef.current || hasCounted) return;
+
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setCount(20);
+      setHasCounted(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        let start = 0;
+        const end = 20;
+        const duration = 1200;
+        const startTime = performance.now();
+
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // easeOutQuad
+          const easeProgress = progress * (2 - progress);
+          
+          const currentCount = Math.floor(easeProgress * end);
+          setCount(currentCount);
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            setCount(end);
+            setHasCounted(true);
+          }
+        };
+
+        requestAnimationFrame(animate);
+        observer.disconnect();
+      }
+    }, { threshold: 0.5 });
+
+    observer.observe(introRef.current);
+    return () => observer.disconnect();
+  }, [hasCounted]);
 
   useGSAP(() => {
     // Hero Animation
@@ -654,6 +702,43 @@ export default function LandingPage() {
                             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
                         </svg>
                     </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      {/* 4.5 Effective Intro / Personalised Messages Section */}
+      <section ref={introRef} className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-gray-100 bg-white">
+        <div className="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] text-center lg:text-left">
+                Effective intro to each client written for you
+            </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                {/* Left Column: Visual Placeholder */}
+                <div className="order-2 lg:order-1 bg-gray-50 rounded-3xl border border-gray-100 aspect-[4/3] flex items-center justify-center shadow-sm relative overflow-hidden group">
+                    <div className="w-20 h-20 text-gray-200 transition-transform duration-500 group-hover:scale-110">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                            <circle cx="9" cy="9" r="2" />
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                        </svg>
+                    </div>
+                    {/* Abstract content lines */}
+                    <div className="absolute inset-x-8 bottom-8 space-y-3 opacity-20">
+                        <div className="h-2 bg-gray-400 rounded-full w-3/4"></div>
+                        <div className="h-2 bg-gray-400 rounded-full w-1/2"></div>
+                    </div>
+                </div>
+
+                {/* Right Column: Big Stat */}
+                <div className="order-1 lg:order-2 space-y-4 text-center lg:text-left">
+                    <div className="text-8xl sm:text-9xl md:text-[120px] font-bold tracking-tighter text-[#111111] leading-none">
+                        {count}%
+                    </div>
+                    <p className="text-xl sm:text-2xl text-gray-500 font-light leading-relaxed max-w-md mx-auto lg:mx-0">
+                        The response rate you’ll get with our personalised messages
+                    </p>
                 </div>
             </div>
         </div>
