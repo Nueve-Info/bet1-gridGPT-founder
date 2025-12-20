@@ -34,6 +34,29 @@ export default function LandingPage() {
   const [cardOrder, setCardOrder] = useState([0, 1, 2]); // [Front, Middle, Back]
   const [isAnimating, setIsAnimating] = useState(false);
 
+  // Form state for the CTA section
+  const [email, setEmail] = useState('');
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      setFormStatus('error');
+      return;
+    }
+
+    setFormStatus('submitting');
+    
+    // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setFormStatus('success');
+      setEmail('');
+    } catch (error) {
+      setFormStatus('error');
+    }
+  };
+
   const swapCards = () => {
     if (isAnimating) return;
     setIsAnimating(true);
@@ -834,10 +857,48 @@ export default function LandingPage() {
                     <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
                     Sign up for a waitlist. Be the first to boost your outreach game.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                         <Input placeholder="Enter your email" className="bg-white/10 border-white/20 text-white placeholder:text-gray-500 h-11 sm:h-12 flex-1" />
-                         <Button className="h-11 sm:h-12 px-6 sm:px-8 bg-white text-black hover:bg-gray-100 font-medium w-full sm:w-auto whitespace-nowrap">Join the waitlist</Button>
-                    </div>
+                    {formStatus === 'success' ? (
+                        <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-white text-sm sm:text-base animate-in fade-in slide-in-from-bottom-2 duration-500">
+                            Thank you for joining the waitlist! Please keep an eye on your email for further updates.
+                        </div>
+                    ) : (
+                        <form onSubmit={handleWaitlistSubmit} className="space-y-4">
+                            <div className="flex flex-col sm:flex-row gap-3">
+                                <Input 
+                                    type="email"
+                                    placeholder="Enter your email" 
+                                    className={cn(
+                                        "bg-white/10 border-white/20 text-white placeholder:text-gray-500 h-11 sm:h-12 flex-1",
+                                        formStatus === 'error' && "border-red-500/50 focus-visible:ring-red-500/50"
+                                    )}
+                                    value={email}
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                        if (formStatus === 'error') setFormStatus('idle');
+                                    }}
+                                    required
+                                    disabled={formStatus === 'submitting'}
+                                />
+                                <Button 
+                                    type="submit"
+                                    disabled={formStatus === 'submitting'}
+                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-white text-black hover:bg-gray-100 font-medium w-full sm:w-auto whitespace-nowrap transition-all"
+                                >
+                                    {formStatus === 'submitting' ? (
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+                                            Joining...
+                                        </div>
+                                    ) : "Join the waitlist"}
+                                </Button>
+                            </div>
+                            {formStatus === 'error' && (
+                                <p className="text-red-400 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
+                                    Something went wrong. Please try again or check your email address.
+                                </p>
+                            )}
+                        </form>
+                    )}
                 </div>
             </div>
             {/* Abstract background blobs */}
