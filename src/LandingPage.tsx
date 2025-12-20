@@ -393,7 +393,7 @@ export default function LandingPage() {
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="flex items-center gap-2 group cursor-pointer"
             >
-                <img src="/assets/logo.svg" alt="Logo" className="h-6 sm:h-8 w-auto" />
+                <img src="/assets/logo.svg" alt="GridGPT Logo - Scroll to top" className="h-6 sm:h-8 w-auto" />
             </button>
             <div className="flex gap-2 sm:gap-4">
                 <Button 
@@ -414,7 +414,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 z-0">
           <img 
             src="/assets/hero-bg-v2.png" 
-            alt="Hero Background" 
+            alt="Hero section background with abstract soft gradients" 
             className="w-full h-full object-cover opacity-60"
           />
         </div>
@@ -455,7 +455,7 @@ export default function LandingPage() {
                  <div className="relative w-full transition-all duration-700 ease-out [transform-style:preserve-3d] [transform:rotateY(-12deg)_rotateX(2deg)] rounded-xl pointer-events-none">
                     <img 
                         src="/assets/dashboard-preview.png" 
-                        alt="Platform Preview" 
+                        alt="GridGPT dashboard preview showing a table of verified leads and an AI agent sidebar" 
                         className="w-full h-auto rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(255,255,255,0.3)]"
                     />
                 </div>
@@ -480,15 +480,15 @@ export default function LandingPage() {
             {/* Right Column: Logo Grid */}
             <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
                 {[
-                    { name: 'linkedin', src: '/assets/sources/linkedin.png' },
-                    { name: 'instagram', src: '/assets/sources/instagram.png' },
-                    { name: 'facebook', src: '/assets/sources/facebook.png' },
-                    { name: 'x', src: '/assets/sources/x.png' },
-                    { name: 'mail', src: '/assets/sources/mail.png' },
-                    { name: 'irs', src: '/assets/sources/irs.png' },
-                    { name: 'google', src: '/assets/sources/google.png' },
-                    { name: 'custom', src: '/assets/sources/custom-logo.svg' },
-                    { name: 'database', src: '/assets/sources/database.png' }
+                    { name: 'LinkedIn', src: '/assets/sources/linkedin.png' },
+                    { name: 'Instagram', src: '/assets/sources/instagram.png' },
+                    { name: 'Facebook', src: '/assets/sources/facebook.png' },
+                    { name: 'X', src: '/assets/sources/x.png' },
+                    { name: 'Email', src: '/assets/sources/mail.png' },
+                    { name: 'IRS', src: '/assets/sources/irs.png' },
+                    { name: 'Google', src: '/assets/sources/google.png' },
+                    { name: 'Custom', src: '/assets/sources/custom-logo.svg' },
+                    { name: 'Database', src: '/assets/sources/database.png' }
                 ].map((logo, i) => (
                     <div 
                         key={i} 
@@ -496,7 +496,7 @@ export default function LandingPage() {
                     >
                         <img 
                             src={logo.src} 
-                            alt={logo.name} 
+                            alt={`${logo.name} data source`} 
                             className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
                         />
                     </div>
@@ -723,9 +723,9 @@ export default function LandingPage() {
                     {[0, 1, 2].map((id) => {
                         const position = cardOrder.indexOf(id); // 0 = Front, 1 = Middle, 2 = Back
                         const images = [
-                            "/assets/agent-interface.png",
-                            "/assets/mail-interface.png",
-                            "/assets/dashboard-preview.png"
+                            { src: "/assets/agent-interface.png", alt: "AI agent interface for lead analysis" },
+                            { src: "/assets/mail-interface.png", alt: "Email personalization tool interface" },
+                            { src: "/assets/dashboard-preview.png", alt: "Platform dashboard overview" }
                         ];
                         return (
                             <div 
@@ -738,8 +738,8 @@ export default function LandingPage() {
                                 )}
                             >
                                 <img 
-                                    src={images[id]} 
-                                    alt="" 
+                                    src={images[id].src} 
+                                    alt={images[id].alt} 
                                     className="w-full h-full object-cover" 
                                 />
                             </div>
@@ -762,7 +762,7 @@ export default function LandingPage() {
                 <div className="order-2 lg:order-1 bg-white rounded-3xl border border-gray-100 aspect-[4/3] flex items-center justify-center shadow-sm relative overflow-hidden group">
                     <img 
                         src="/assets/mail-interface.png" 
-                        alt="Email Creation Interface" 
+                        alt="GridGPT email personalization interface showing an AI-generated intro for a lead" 
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                 </div>
@@ -801,7 +801,11 @@ export default function LandingPage() {
                             num === 6 && "md:-ml-2"
                         )}>
                             <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
-                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                                 <img 
+                                    src={`/assets/testimonials/t${num}.png`} 
+                                    alt={`Customer feedback from Discord and social media ${num}`} 
+                                    className="w-full h-auto" 
+                                 />
                             </Card>
                         </div>
                     ))}
@@ -817,7 +821,11 @@ export default function LandingPage() {
                             num === 11 && "md:ml-8"
                         )}>
                             <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
-                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                                 <img 
+                                    src={`/assets/testimonials/t${num}.png`} 
+                                    alt={`Customer feedback from Discord and social media ${num}`} 
+                                    className="w-full h-auto" 
+                                 />
                             </Card>
                         </div>
                     ))}
@@ -833,7 +841,11 @@ export default function LandingPage() {
                             num === 7 && "md:scale-105"
                         )}>
                             <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
-                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
+                                 <img 
+                                    src={`/assets/testimonials/t${num}.png`} 
+                                    alt={`Customer feedback from Discord and social media ${num}`} 
+                                    className="w-full h-auto" 
+                                 />
                             </Card>
                         </div>
                     ))}
