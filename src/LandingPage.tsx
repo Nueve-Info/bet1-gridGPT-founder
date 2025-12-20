@@ -315,14 +315,7 @@ export default function LandingPage() {
             duration: 0.8,
             stagger: 0.15,
             ease: "power3.out"
-        }, "-=0.4")
-        .from(featuresRef.current.querySelectorAll(".group > div"), {
-            opacity: 0,
-            scale: 0.95,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power2.out"
-        }, "-=0.6");
+        }, "-=0.4");
     }
 
     // Testimonials Animation
