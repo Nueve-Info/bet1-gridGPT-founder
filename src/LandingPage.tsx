@@ -47,11 +47,25 @@ export default function LandingPage() {
 
     setFormStatus('submitting');
     
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setFormStatus('success');
-      setEmail('');
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/15087615/uak87eb/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          source: 'waitlist',
+          timestamp: new Date().toISOString()
+        }),
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        setEmail('');
+      } else {
+        setFormStatus('error');
+      }
     } catch (error) {
       setFormStatus('error');
     }
@@ -859,7 +873,7 @@ export default function LandingPage() {
                     </p>
                     {formStatus === 'success' ? (
                         <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-white text-sm sm:text-base animate-in fade-in slide-in-from-bottom-2 duration-500">
-                            Thank you for joining the waitlist! Please keep an eye on your email for further updates.
+                            Thanks for joining the waitlist! Keep an eye on your inbox for updates.
                         </div>
                     ) : (
                         <form onSubmit={handleWaitlistSubmit} className="space-y-4">
@@ -894,7 +908,7 @@ export default function LandingPage() {
                             </div>
                             {formStatus === 'error' && (
                                 <p className="text-red-400 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
-                                    Something went wrong. Please try again or check your email address.
+                                    Something went wrong. Please try again in a moment.
                                 </p>
                             )}
                         </form>
