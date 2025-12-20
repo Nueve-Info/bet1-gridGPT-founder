@@ -48,10 +48,16 @@ export default function LandingPage() {
     setFormStatus('submitting');
     
     try {
-      const response = await fetch('https://hooks.zapier.com/hooks/catch/15087615/uak87eb/', {
+      // Using 'no-cors' mode to bypass the CORS preflight check which Zapier webhooks 
+      // sometimes struggle with in local development. 
+      // Note: with 'no-cors', we won't be able to read the response, 
+      // so we assume success if the fetch doesn't throw.
+      await fetch('https://hooks.zapier.com/hooks/catch/15087615/uak87eb/', {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          // We omit Content-Type: application/json to keep it a "simple request"
+          // and avoid the OPTIONS preflight that is being blocked.
         },
         body: JSON.stringify({
           email: email,
@@ -60,12 +66,8 @@ export default function LandingPage() {
         }),
       });
 
-      if (response.ok) {
-        setFormStatus('success');
-        setEmail('');
-      } else {
-        setFormStatus('error');
-      }
+      setFormStatus('success');
+      setEmail('');
     } catch (error) {
       setFormStatus('error');
     }
