@@ -357,7 +357,14 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
             <div className="font-semibold text-base sm:text-lg tracking-tight">Product</div>
             <div className="flex gap-2 sm:gap-4">
-                <Button variant="default" size="sm" className="bg-[#111111] text-white hover:bg-black/90 text-xs sm:text-sm px-3 sm:px-4">Join the waitlist</Button>
+                <Button 
+                    variant="default" 
+                    size="sm" 
+                    className="bg-[#111111] text-white hover:bg-black/90 text-xs sm:text-sm px-3 sm:px-4"
+                    onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                    Join the waitlist
+                </Button>
             </div>
         </div>
       </nav>
@@ -384,7 +391,12 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="hero-animate flex flex-col sm:flex-row gap-3 pt-2 sm:pt-4">
-                <Button className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto">Join the waitlist</Button>
+                <Button 
+                    className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto"
+                    onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                    Join the waitlist
+                </Button>
             </div>
           </div>
           <div className="hero-animate relative w-full flex items-center justify-center lg:justify-end order-1 lg:order-2">
@@ -621,7 +633,11 @@ export default function LandingPage() {
                       </div>
                   </div>
 
-                  <Button variant="secondary" className="h-12 px-8 text-base bg-white text-black hover:bg-gray-100 border-0">
+                  <Button 
+                    variant="secondary" 
+                    className="h-12 px-8 text-base bg-white text-black hover:bg-gray-100 border-0"
+                    onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
                     Get Started
                   </Button>
                 </div>
@@ -803,7 +819,7 @@ export default function LandingPage() {
       </section>
 
       {/* 6. Dashboard preview + CTA */}
-      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+      <section id="cta" className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
          <div className="max-w-6xl mx-auto bg-[#111111] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16 text-white overflow-hidden relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center relative z-10">
                 <div className="bg-white/10 border border-white/10 rounded-lg sm:rounded-xl aspect-video flex items-center justify-center order-2 lg:order-1 overflow-hidden relative">
