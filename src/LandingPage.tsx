@@ -648,50 +648,17 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-                 {[
-                   { name: "Sarah Jenkins", role: "Founder, TechFlow", text: "Finally, a tool that understands my niche. The leads aren't just names; they are actual opportunities with context.", isDark: true },
-                   { name: "Michael Chen", role: "Head of Growth, SaaSify", text: "The feedback loop is a game changer. Every day the engine gets smarter about who we want to talk to." },
-                   { name: "Elena Rodriguez", role: "Sales Director, Peak", text: "10 leads a day might sound small, but when 8 of them are perfect fits, it's more than we ever had before.", isDark: true },
-                   { name: "David Park", role: "CEO, Innovate", text: "The AI-written first lines are surprisingly natural. Our reply rates jumped by nearly 40% in the first month." },
-                   { name: "Julia Smith", role: "Marketing Lead, ScaleUp", text: "Setting up our ICP took less than 5 minutes. We had our first list ready before my coffee was finished.", isDark: true },
-                   { name: "Marcus Thorne", role: "Founder, SoloPulse", text: "Simple, effective, and reliable. It's like having a full-time researcher working 24/7 for a fraction of the cost." }
-                 ].map((t, i) => (
-                    <Card key={i} className={cn(
-                        "transition-colors flex flex-col p-6 sm:p-8 shadow-none",
-                        t.isDark 
-                          ? "bg-[#111111] border-white/10 text-white hover:border-white/20" 
-                          : "bg-white border-gray-200 text-[#111111] hover:border-gray-300"
-                    )}>
-                         <div className="flex gap-1 mb-6">
-                            {[1, 2, 3, 4, 5].map((s) => (
-                              <Star key={s} size={16} className={cn(
-                                "fill-current",
-                                t.isDark ? "text-white" : "text-[#111111]"
-                              )} />
-                            ))}
-                         </div>
-                         <CardContent className="p-0 flex-grow">
-                            <p className={cn(
-                                "leading-relaxed italic",
-                                t.isDark ? "text-gray-300" : "text-gray-600"
-                            )}>"{t.text}"</p>
-                         </CardContent>
-                         <div className="mt-8 flex items-center gap-4">
-                             <div className={cn(
-                                 "w-10 h-10 rounded-full flex items-center justify-center shrink-0 border",
-                                 t.isDark ? "bg-white/10 border-white/20" : "bg-gray-100 border-gray-200"
-                             )}>
-                                <svg className={cn("w-6 h-6", t.isDark ? "text-gray-300" : "text-gray-400")} fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                                </svg>
-                             </div>
-                             <div className="flex flex-col">
-                                <span className={cn("font-semibold text-sm", t.isDark ? "text-white" : "text-[#111111]")}>{t.name}</span>
-                                <span className="text-xs text-gray-500">{t.role}</span>
-                             </div>
-                         </div>
-                    </Card>
+            <div className="columns-1 sm:columns-2 md:columns-3 gap-6 sm:gap-8 space-y-6 sm:space-y-8">
+                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((num) => (
+                    <div key={num} className="break-inside-avoid">
+                        <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden group hover:border-white/20 transition-all duration-300">
+                             <img 
+                                src={`/assets/testimonials/t${num}.png`} 
+                                alt={`Testimonial ${num}`} 
+                                className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]" 
+                             />
+                        </Card>
+                    </div>
                  ))}
             </div>
         </div>
