@@ -722,6 +722,11 @@ export default function LandingPage() {
                 >
                     {[0, 1, 2].map((id) => {
                         const position = cardOrder.indexOf(id); // 0 = Front, 1 = Middle, 2 = Back
+                        const images = [
+                            "/assets/agent-interface.png",
+                            "/assets/mail-interface.png",
+                            "/assets/dashboard-preview.png"
+                        ];
                         return (
                             <div 
                                 key={id}
@@ -732,19 +737,11 @@ export default function LandingPage() {
                                     position === 2 && "z-10 scale-90 shadow-sm border-[#111111]/5 opacity-60 lg:-translate-x-28 lg:-translate-y-28 md:-translate-x-20 md:-translate-y-20 -translate-x-12 -translate-y-12 rotate-[-4deg]"
                                 )}
                             >
-                                <div className={cn(
-                                    "w-16 h-16 sm:w-20 sm:h-20 transition-colors duration-500",
-                                    position === 0 ? "text-gray-200" : "text-gray-100"
-                                )}>
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                                        <circle cx="9" cy="9" r="2" />
-                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                                    </svg>
-                                </div>
-                                {/* Subtle decorative elements to distinguish cards */}
-                                <div className="absolute top-4 left-6 right-6 h-1 bg-gray-50 rounded-full overflow-hidden opacity-20"></div>
-                                <div className="absolute bottom-6 left-6 w-1/2 h-1 bg-gray-50 rounded-full overflow-hidden opacity-20"></div>
+                                <img 
+                                    src={images[id]} 
+                                    alt="" 
+                                    className="w-full h-full object-cover" 
+                                />
                             </div>
                         );
                     })}
