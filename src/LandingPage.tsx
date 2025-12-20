@@ -391,7 +391,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
             <button 
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="flex items-center gap-2 group cursor-pointer"
+                className="flex items-center gap-2 group cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95"
             >
                 <img src="/assets/logo.svg" alt="GridGPT Logo - Scroll to top" className="h-6 sm:h-8 w-auto" />
             </button>
@@ -399,7 +399,7 @@ export default function LandingPage() {
                 <Button 
                     variant="default" 
                     size="sm" 
-                    className="bg-[#111111] text-white hover:bg-black/90 text-xs sm:text-sm px-3 sm:px-4"
+                    className="bg-[#111111] text-white hover:bg-black/90 text-xs sm:text-sm px-3 sm:px-4 transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                     onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                     Join the waitlist
@@ -431,7 +431,7 @@ export default function LandingPage() {
             </div>
             <div className="hero-animate flex flex-col sm:flex-row gap-3 pt-2 sm:pt-4">
                 <Button 
-                    className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto"
+                    className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-lg hover:shadow-black/20"
                     onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                     Join the waitlist
@@ -655,7 +655,7 @@ export default function LandingPage() {
 
                   <Button 
                     variant="secondary" 
-                    className="h-12 px-8 text-base bg-white text-black hover:bg-gray-100 border-0"
+                    className="h-12 px-8 text-base bg-white text-black hover:bg-gray-100 border-0 transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                     onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     Get Started
@@ -900,7 +900,7 @@ export default function LandingPage() {
                                 <Button 
                                     type="submit"
                                     disabled={formStatus === 'submitting'}
-                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-white text-black hover:bg-gray-100 font-medium w-full sm:w-auto whitespace-nowrap transition-all"
+                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-white text-black hover:bg-gray-100 font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                                 >
                                     {formStatus === 'submitting' ? (
                                         <div className="flex items-center gap-2">
