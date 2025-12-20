@@ -109,25 +109,20 @@ export default function LandingPage() {
             }
         });
 
-        tl.from(contextRef.current.querySelector("h2"), {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out"
-        })
-        .from(contextRef.current.querySelector("p"), {
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out"
-        }, "-=0.6")
-        .from(contextRef.current.querySelectorAll(".logo-grid-item"), {
-            scale: 0.8,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.05,
-            ease: "back.out(1.7)"
-        }, "-=0.4");
+        tl.fromTo(contextRef.current.querySelector("h2"), 
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+        )
+        .fromTo(contextRef.current.querySelector("p"),
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+            "-=0.6"
+        )
+        .fromTo(contextRef.current.querySelectorAll(".logo-grid-item"),
+            { scale: 0.8, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.7)" },
+            "-=0.4"
+        );
     }
 
     // Role Rotator Animation
