@@ -648,54 +648,41 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-6 sm:gap-8">
-                 {/* Column 1 */}
-                 <div className="flex-1 space-y-6 sm:space-y-8">
-                    {[1, 2, 3, 4, 5, 6].map((num) => (
-                        <div key={num} className={cn(
-                            "transition-all duration-500 hover:scale-[1.02]",
-                            num === 2 && "md:mt-12",
-                            num === 4 && "md:ml-4",
-                            num === 6 && "md:-ml-2"
-                        )}>
-                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
-                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
-                            </Card>
-                        </div>
-                    ))}
-                 </div>
-
-                 {/* Column 2 */}
-                 <div className="flex-1 space-y-6 sm:space-y-8 md:mt-12">
-                    {[8, 9, 10, 11, 12].map((num) => (
-                        <div key={num} className={cn(
-                            "transition-all duration-500 hover:scale-[1.02]",
-                            num === 9 && "md:mr-6",
-                            num === 10 && "md:scale-110 md:z-10",
-                            num === 11 && "md:ml-8"
-                        )}>
-                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
-                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
-                            </Card>
-                        </div>
-                    ))}
-                 </div>
-
-                 {/* Column 3 */}
-                 <div className="flex-1 space-y-6 sm:space-y-8">
-                    {[13, 14, 15, 7].map((num) => (
-                        <div key={num} className={cn(
-                            "transition-all duration-500 hover:scale-[1.02]",
-                            num === 13 && "md:mt-4",
-                            num === 15 && "md:mr-4",
-                            num === 7 && "md:scale-105"
-                        )}>
-                            <Card className="bg-[#1a1c1e] border-white/5 shadow-none overflow-hidden border-0 p-0">
-                                 <img src={`/assets/testimonials/t${num}.png`} alt="" className="w-full h-auto" />
-                            </Card>
-                        </div>
-                    ))}
-                 </div>
+            <div className="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-y-4 md:gap-y-0 md:gap-x-6 lg:gap-x-8 grid-flow-dense">
+                 {[
+                   { id: 1, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-8 md:-translate-y-4", z: "z-10" },
+                   { id: 8, span: "lg:col-span-4 md:col-span-4", offset: "lg:translate-y-12 md:translate-y-6", z: "z-0" },
+                   { id: 13, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-4 md:-translate-y-2", z: "z-10" },
+                   { id: 2, span: "lg:col-span-3 md:col-span-4", offset: "lg:translate-y-6 md:translate-y-3 lg:-translate-x-4", z: "z-20" },
+                   { id: 9, span: "lg:col-span-6 md:col-span-8", offset: "lg:-translate-y-16 md:-translate-y-8", z: "z-10" },
+                   { id: 14, span: "lg:col-span-3 md:col-span-4", offset: "lg:translate-y-10 md:translate-y-5 lg:translate-x-6", z: "z-20" },
+                   { id: 3, span: "lg:col-span-5 md:col-span-6", offset: "lg:-translate-y-10 md:-translate-y-5", z: "z-0" },
+                   { id: 10, span: "lg:col-span-7 md:col-span-6", offset: "lg:translate-y-4 md:translate-y-2 lg:-translate-x-8", z: "z-30" },
+                   { id: 4, span: "lg:col-span-4 md:col-span-4", offset: "lg:translate-y-14 md:translate-y-7", z: "z-10" },
+                   { id: 11, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-20 md:-translate-y-10", z: "z-0" },
+                   { id: 15, span: "lg:col-span-4 md:col-span-4", offset: "lg:translate-y-8 md:translate-y-4", z: "z-10" },
+                   { id: 5, span: "lg:col-span-6 md:col-span-6", offset: "lg:-translate-y-6 md:-translate-y-3", z: "z-20" },
+                   { id: 12, span: "lg:col-span-6 md:col-span-6", offset: "lg:translate-y-16 md:translate-y-8 lg:translate-x-12", z: "z-10" },
+                   { id: 6, span: "lg:col-span-4 md:col-span-4", offset: "lg:-translate-y-12 md:-translate-y-6", z: "z-0" },
+                   { id: 7, span: "lg:col-span-8 md:col-span-8", offset: "lg:translate-y-6 md:translate-y-3", z: "z-10" },
+                 ].map((t) => (
+                    <div key={t.id} className={cn(
+                        "relative transition-all duration-500 hover:scale-[1.02] transform-gpu",
+                        t.span,
+                        // Apply offsets only from md up
+                        t.offset.split(' ').filter(c => c.startsWith('lg:') || c.startsWith('md:')).join(' '),
+                        t.z,
+                        "mb-4 md:mb-12 lg:mb-16" // Responsive bottom margin
+                    )}>
+                        <Card className="bg-transparent border-0 shadow-none overflow-hidden p-0">
+                             <img 
+                                src={`/assets/testimonials/t${t.id}.png`} 
+                                alt="" 
+                                className="w-full h-auto drop-shadow-2xl" 
+                             />
+                        </Card>
+                    </div>
+                 ))}
             </div>
         </div>
       </section>
