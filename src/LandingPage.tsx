@@ -761,20 +761,13 @@ export default function LandingPage() {
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                {/* Left Column: Visual Placeholder */}
-                <div className="order-2 lg:order-1 bg-gray-50 rounded-3xl border border-gray-100 aspect-[4/3] flex items-center justify-center shadow-sm relative overflow-hidden group">
-                    <div className="w-20 h-20 text-gray-200 transition-transform duration-500 group-hover:scale-110">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                            <circle cx="9" cy="9" r="2" />
-                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                        </svg>
-                    </div>
-                    {/* Abstract content lines */}
-                    <div className="absolute inset-x-8 bottom-8 space-y-3 opacity-20">
-                        <div className="h-2 bg-gray-400 rounded-full w-3/4"></div>
-                        <div className="h-2 bg-gray-400 rounded-full w-1/2"></div>
-                    </div>
+                {/* Left Column: Image Asset */}
+                <div className="order-2 lg:order-1 bg-white rounded-3xl border border-gray-100 aspect-[4/3] flex items-center justify-center shadow-sm relative overflow-hidden group">
+                    <img 
+                        src="/assets/mail-interface.png" 
+                        alt="Email Creation Interface" 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
                 </div>
 
                 {/* Right Column: Big Stat */}
