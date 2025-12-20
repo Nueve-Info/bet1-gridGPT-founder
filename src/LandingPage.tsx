@@ -496,10 +496,10 @@ export default function LandingPage() {
             {/* Header Text */}
             <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 space-y-4">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-[#111111] leading-[1.1]">
-                Meet our engine
+                Every lead you get is triple checked for quality.
               </h2>
               <p className="text-lg sm:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto">
-                …that delivers quality leads in minutes. We don’t just find emails – we verify fit to your criteria and add the context you need for successful outreach.
+                …that delivers quality leads in minutes. We don’t just find emails - we verify fit to your criteria and add the context you need for successful outreach.
               </p>
             </div>
 
