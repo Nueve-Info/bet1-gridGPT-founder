@@ -366,7 +366,12 @@ export default function LandingPage() {
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-            <div className="font-semibold text-base sm:text-lg tracking-tight">Product</div>
+            <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="flex items-center gap-2 group cursor-pointer"
+            >
+                <img src="/assets/logo.svg" alt="Logo" className="h-6 sm:h-8 w-auto" />
+            </button>
             <div className="flex gap-2 sm:gap-4">
                 <Button 
                     variant="default" 
