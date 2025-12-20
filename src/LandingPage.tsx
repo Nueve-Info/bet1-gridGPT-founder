@@ -99,46 +99,35 @@ export default function LandingPage() {
         });
     }
 
-    // Context Section Animation
+    // Context Section Animation (Source Logos)
     if (contextRef.current) {
-        gsap.from(contextRef.current.querySelectorAll("h2"), {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contextRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        tl.from(contextRef.current.querySelector("h2"), {
             y: 30,
             opacity: 0,
             duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: contextRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
-        });
-
-        gsap.from(contextRef.current.querySelectorAll(".flex-1"), { // The image placeholder
-            x: -30,
+            ease: "power3.out"
+        })
+        .from(contextRef.current.querySelector("p"), {
+            y: 20,
             opacity: 0,
             duration: 0.8,
-            ease: "power3.out",
-            delay: 0.2,
-            scrollTrigger: {
-                trigger: contextRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
-        });
-
-        gsap.from(contextRef.current.querySelectorAll(".space-y-12 > div"), { // The 3 points
-            x: 30,
+            ease: "power3.out"
+        }, "-=0.6")
+        .from(contextRef.current.querySelectorAll(".logo-grid-item"), {
+            scale: 0.8,
             opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out",
-            delay: 0.2,
-            scrollTrigger: {
-                trigger: contextRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
-        });
+            duration: 0.6,
+            stagger: 0.05,
+            ease: "back.out(1.7)"
+        }, "-=0.4");
     }
 
     // Role Rotator Animation
@@ -441,62 +430,43 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 2. Context section – "Where are these leads coming from?" */}
+      {/* 2. Context section – Source Logos */}
       <section ref={contextRef} className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-gray-100 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
-            {/* Left Column */}
-            <div className="space-y-8 flex flex-col h-full">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111]">
-                    These leads were found for you
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column: Text Content */}
+            <div className="space-y-6 sm:space-y-8">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] leading-tight">
+                    Billion records scanned every day to find your ideal future client
                 </h2>
-                <div className="flex-1 bg-[#111111] rounded-3xl flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden min-h-[300px] relative">
-                        <iframe 
-                            src="https://player.vimeo.com/video/1148118071?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1" 
-                            className="absolute inset-0 w-full h-full scale-[1.02] object-cover"
-                            frameBorder="0" 
-                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            title="table-animation"
-                        ></iframe>
-                </div>
+                <p className="text-lg sm:text-xl text-gray-500 font-light leading-relaxed max-w-lg">
+                    We monitor 100+ sources to catch the earliest signs of interest you can use in your outreach.
+                </p>
             </div>
 
-            {/* Right Column */}
-            <div className="space-y-12 flex flex-col justify-center py-4 lg:py-8">
-                {/* Point 1 */}
-                <div className="flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center text-[#111111]">
-                        <Database01Icon size={44} />
+            {/* Right Column: Logo Grid */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                {[
+                    { name: 'linkedin', src: '/assets/sources/linkedin.png' },
+                    { name: 'instagram', src: '/assets/sources/instagram.png' },
+                    { name: 'facebook', src: '/assets/sources/facebook.png' },
+                    { name: 'x', src: '/assets/sources/x.png' },
+                    { name: 'mail', src: '/assets/sources/mail.png' },
+                    { name: 'irs', src: '/assets/sources/irs.png' },
+                    { name: 'google', src: '/assets/sources/google.png' },
+                    { name: 'apple', src: '/assets/sources/apple.png' },
+                    { name: 'database', src: '/assets/sources/database.png' }
+                ].map((logo, i) => (
+                    <div 
+                        key={i} 
+                        className="logo-grid-item aspect-square bg-[#9ca3af] rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 group hover:bg-[#8b929e] transition-colors duration-300"
+                    >
+                        <img 
+                            src={logo.src} 
+                            alt={logo.name} 
+                            className="w-full h-full object-contain filter brightness-0 opacity-80 group-hover:opacity-100 transition-opacity" 
+                        />
                     </div>
-                    <p className="text-xl sm:text-[24px] text-gray-600 leading-[1.3] tracking-tight pt-1">
-                        with <span className="font-semibold text-[#111111]">your requirements</span> in mind from 100+ verified sources.
-                    </p>
-                </div>
-
-                {/* Point 2 */}
-                <div className="flex gap-6 items-start">
-                    <div className="flex-shrink-0 relative w-16 h-16 pt-1">
-                         <div className="absolute top-0 left-0 w-10 h-10 rounded-xl border-2 border-[#111111] flex items-center justify-center -rotate-12 bg-white shadow-sm z-10">
-                            <Linkedin01Icon size={20} strokeWidth={2.5} />
-                         </div>
-                         <div className="absolute bottom-0 right-0 w-10 h-10 rounded-xl border-2 border-[#111111] flex items-center justify-center rotate-12 bg-white shadow-sm">
-                            <Facebook01Icon size={20} strokeWidth={2.5} />
-                         </div>
-                    </div>
-                    <p className="text-xl sm:text-[24px] text-gray-600 leading-[1.3] tracking-tight pt-1">
-                        pulled from <span className="font-semibold text-[#111111]">social platforms and business databases</span>, filtered to <span className="font-semibold text-[#111111]">fit</span>
-                    </p>
-                </div>
-
-                {/* Point 3 */}
-                <div className="flex gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center text-[#111111]">
-                        <NoteEditIcon size={44} />
-                    </div>
-                    <p className="text-xl sm:text-[24px] text-gray-600 leading-[1.3] tracking-tight pt-1">
-                        then enriched with <span className="font-semibold text-[#111111]">context</span> so <span className="font-semibold text-[#111111]">your first message is always personal and does not sound templated</span>
-                    </p>
-                </div>
+                ))}
             </div>
         </div>
       </section>
