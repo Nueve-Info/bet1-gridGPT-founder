@@ -487,7 +487,7 @@ export default function LandingPage() {
                     { name: 'mail', src: '/assets/sources/mail.png' },
                     { name: 'irs', src: '/assets/sources/irs.png' },
                     { name: 'google', src: '/assets/sources/google.png' },
-                    { name: 'apple', src: '/assets/sources/apple.png' },
+                    { name: 'custom', src: '/assets/sources/custom-logo.svg' },
                     { name: 'database', src: '/assets/sources/database.png' }
                 ].map((logo, i) => (
                     <div 
