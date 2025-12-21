@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/bet1-gridGPT-founder/',
   plugins: [react()],
   resolve: {
     alias: {
