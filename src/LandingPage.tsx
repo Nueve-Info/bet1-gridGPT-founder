@@ -330,11 +330,11 @@ export default function LandingPage() {
     // Features Animation (Metrics Section)
     if (featuresRef.current) {
         const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: featuresRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
+                scrollTrigger: {
+                    trigger: featuresRef.current,
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
         });
 
         tl.from(featuresRef.current.querySelector("h2"), {
@@ -471,11 +471,11 @@ export default function LandingPage() {
             <div className="space-y-6 sm:space-y-8">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] leading-tight">
                     Billion records scanned every day to find your ideal future client
-                </h2>
+            </h2>
                 <p className="text-lg sm:text-xl text-gray-500 font-light leading-relaxed max-w-lg">
                     We monitor 100+ sources to catch the earliest signs of interest you can use in your outreach.
-                </p>
-            </div>
+                    </p>
+                </div>
 
             {/* Right Column: Logo Grid */}
             <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
@@ -499,7 +499,7 @@ export default function LandingPage() {
                             alt={`${logo.name} data source`} 
                             className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
                         />
-                    </div>
+                </div>
                 ))}
             </div>
         </div>
@@ -513,7 +513,7 @@ export default function LandingPage() {
             <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 space-y-4">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-[#111111] leading-[1.1]">
                 Every lead you get is triple checked for quality.
-              </h2>
+                </h2>
               <p className="text-lg sm:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto">
                 …that delivers quality leads in minutes. We don’t just find emails - we verify fit to your criteria and add the context you need for successful outreach.
               </p>
@@ -532,13 +532,13 @@ export default function LandingPage() {
                       title="agent-prepare"
                   ></iframe>
                 </div>
-              </div>
+                    </div>
               <p className="text-center text-xs sm:text-sm text-gray-400 mt-6 uppercase tracking-wider font-medium">
                 Watch the Agent in Action
               </p>
             </div>
-          </div>
-        </section>
+        </div>
+      </section>
 
         {/* --- SECTION: HOW IT WORKS (Dark Mode) --- */}
         <section ref={pipelineRef} className="py-16 sm:py-20 md:py-24 bg-[#111111] text-zinc-50 relative overflow-hidden">
@@ -552,7 +552,7 @@ export default function LandingPage() {
               <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-white">How the Engine Works</h3>
               <p className="text-lg sm:text-xl text-gray-400 font-light max-w-2xl mx-auto">A continuous pipeline from definition to delivery.</p>
             </div>
-
+            
             {/* The Pipeline Graph */}
             <div className="relative w-full">
               
@@ -577,12 +577,12 @@ export default function LandingPage() {
                     <div className="relative">
                       <div className="w-16 h-16 md:w-24 md:h-24 bg-[#111111] rounded-full border border-white/10 flex items-center justify-center z-10 transition-all duration-300 group-hover:border-white/30 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                         <item.icon className="w-6 h-6 md:w-8 md:h-8 text-gray-500 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
-                      </div>
+                                       </div>
                       <div className="absolute -top-2 -right-2 bg-[#111111] text-[10px] font-bold px-2 py-0.5 rounded-full text-gray-400 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors">
                         {item.step}
-                      </div>
-                    </div>
-
+                                  </div>
+                             </div>
+                             
                     {/* Content (Dark Mode) */}
                     <div className="md:text-center md:mt-8 pt-2 md:pt-0 max-w-xs">
                       <h4 className="text-lg font-medium text-white mb-2 group-hover:text-white transition-colors tracking-tight">
@@ -590,13 +590,13 @@ export default function LandingPage() {
                       </h4>
                       <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
                         {item.desc}
-                      </p>
-                    </div>
+                                  </p>
+                             </div>
 
-                  </div>
+                    </div>
                 ))}
-              </div>
             </div>
+        </div>
 
             {/* Visual Connector to Outcome (Dark Mode) */}
             <div className="flex flex-col items-center justify-center my-16 md:my-20">
@@ -639,8 +639,8 @@ export default function LandingPage() {
                     <p className="text-lg sm:text-xl text-gray-400 font-light leading-relaxed">
                       A personalized list lands in your inbox, Sheet/CSV, or CRM.
                     </p>
-                  </div>
-                  
+                 </div>
+
                   <div className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
                         <CheckCircle2 className="w-5 h-5 text-white" />
@@ -651,7 +651,7 @@ export default function LandingPage() {
                             You can make it better each day with quick <span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] bg-white text-[#111111] align-middle mx-0.5"><Tick02Icon size={10} /></span>/<span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] bg-white text-[#111111] align-middle mx-0.5"><Cancel01Icon size={10} /></span> feedback.
                         </p>
                       </div>
-                  </div>
+                 </div>
 
                   <Button 
                     variant="secondary" 
@@ -661,8 +661,8 @@ export default function LandingPage() {
                     Get Started
                   </Button>
                 </div>
-              </div>
-            </div>
+                      </div>
+                 </div>
 
           </div>
         </section>
@@ -709,8 +709,8 @@ export default function LandingPage() {
                         <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-sm">
                             to set your ICP criteria and generate your first lead list.
                         </p>
-                    </div>
-                </div>
+                      </div>
+                 </div>
             </div>
 
             {/* Right Column: Visuals - 3 Card Carousel Swap */}
@@ -827,9 +827,9 @@ export default function LandingPage() {
                                     className="w-full h-auto" 
                                  />
                             </Card>
-                        </div>
+                            </div>
                     ))}
-                 </div>
+                             </div>
 
                  {/* Column 3 */}
                  <div className="flex-1 space-y-6 sm:space-y-8">
@@ -846,9 +846,9 @@ export default function LandingPage() {
                                     alt={`Customer feedback from Discord and social media ${num}`} 
                                     className="w-full h-auto" 
                                  />
-                            </Card>
+                    </Card>
                         </div>
-                    ))}
+                 ))}
                  </div>
             </div>
         </div>
@@ -881,7 +881,7 @@ export default function LandingPage() {
                         </div>
                     ) : (
                         <form onSubmit={handleWaitlistSubmit} className="space-y-4">
-                            <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3">
                                 <Input 
                                     type="email"
                                     placeholder="Enter your email" 
@@ -909,7 +909,7 @@ export default function LandingPage() {
                                         </div>
                                     ) : "Join the waitlist"}
                                 </Button>
-                            </div>
+                    </div>
                             {formStatus === 'error' && (
                                 <p className="text-red-400 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
                                     Something went wrong. Please try again in a moment.
@@ -953,7 +953,7 @@ export default function LandingPage() {
             <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
                 <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
                 <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
-                            </div>
+            </div>
         </div>
       </footer>
     </div>
