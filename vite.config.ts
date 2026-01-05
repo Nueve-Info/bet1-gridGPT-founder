@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@gridGPT-assets': path.resolve(__dirname, './gridGPT-assets'),
     },
   },
 })

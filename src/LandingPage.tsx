@@ -12,6 +12,8 @@ import { cn } from './lib/utils';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import dashboardImage from '@gridGPT-assets/dashboard.png';
+import feedbackSuccessImage from '@gridGPT-assets/feedback success.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -723,8 +725,8 @@ export default function LandingPage() {
                     {[0, 1, 2].map((id) => {
                         const position = cardOrder.indexOf(id); // 0 = Front, 1 = Middle, 2 = Back
                         const images = [
-                            { src: "/assets/agent-interface.png", alt: "AI agent interface for lead analysis" },
-                            { src: "/assets/mail-interface.png", alt: "Email personalization tool interface" },
+                            { src: feedbackSuccessImage, alt: "AI agent interface for lead analysis" },
+                            { src: dashboardImage, alt: "Email personalization tool interface" },
                             { src: "/assets/dashboard-preview.png", alt: "Platform dashboard overview" }
                         ];
                         return (
