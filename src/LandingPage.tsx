@@ -1194,7 +1194,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="order-2 sm:order-1">© 2025 GridGPT. All rights reserved.</div>
             <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
-                <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
+                <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
                             </div>
         </div>
       </footer>
