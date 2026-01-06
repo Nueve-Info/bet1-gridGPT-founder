@@ -1,5 +1,6 @@
 // import React from 'react';
 import { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Tick02Icon, Cancel01Icon, Database01Icon, Linkedin01Icon, Facebook01Icon, NoteEditIcon } from 'hugeicons-react';
 import { Search, Filter, UserCheck, Play, CheckCircle2, Target, ArrowDown, Star } from 'lucide-react';
 import { Button } from './components/ui/button';
@@ -16,6 +17,7 @@ import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
+  const navigate = useNavigate();
   const stepsRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const featuresRef = useRef<HTMLElement>(null);
@@ -25,6 +27,7 @@ export default function LandingPage() {
   const contextRef = useRef<HTMLElement>(null);
   const engineRef = useRef<HTMLElement>(null);
   const pipelineRef = useRef<HTMLElement>(null);
+  const pipelineStepsRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLElement>(null);
   const introRef = useRef<HTMLElement>(null);
   const [count, setCount] = useState(0);
@@ -33,6 +36,22 @@ export default function LandingPage() {
   // Carousel state for the metrics section
   const [cardOrder, setCardOrder] = useState([0, 1, 2]); // [Front, Middle, Back]
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Badge counts state for logo notifications
+  const [badgeCounts, setBadgeCounts] = useState({
+    LinkedIn: 85,
+    Instagram: 56,
+    Facebook: 91,
+    X: 95
+  });
+  const badgeCountsRef = useRef(badgeCounts);
+  const setBadgeCountsRef = useRef(setBadgeCounts);
+
+  // Keep refs in sync with state
+  useEffect(() => {
+    badgeCountsRef.current = badgeCounts;
+    setBadgeCountsRef.current = setBadgeCounts;
+  }, [badgeCounts]);
 
   // Form state for the CTA section
   const [email, setEmail] = useState('');
@@ -162,6 +181,105 @@ export default function LandingPage() {
             { scale: 1, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.7)" },
             "-=0.4"
         );
+
+        // Auto-animation: highlight each logo item one at a time
+        const logoItems = contextRef.current.querySelectorAll(".logo-grid-item");
+        if (logoItems.length > 0) {
+            const highlightTimeline = gsap.timeline({
+                repeat: -1,
+                scrollTrigger: {
+                    trigger: contextRef.current,
+                    start: "top 75%",
+                    toggleActions: "play none none none"
+                }
+            });
+
+            logoItems.forEach((item, index) => {
+                const image = item.querySelector(".logo-image") as HTMLElement;
+                const overlay = item.querySelector(".logo-overlay") as HTMLElement;
+                const badge = item.querySelector(".logo-badge") as HTMLElement;
+                const logoName = item.getAttribute("data-logo");
+
+                // Increment badge count when highlighting (only if badge exists and logoName is valid)
+                if (badge && logoName && logoName in badgeCountsRef.current) {
+                    highlightTimeline.call(() => {
+                        setBadgeCountsRef.current(prev => {
+                            const logoKey = logoName as keyof typeof prev;
+                            if (!(logoKey in prev)) return prev;
+                            const currentValue = prev[logoKey];
+                            const increment = Math.floor(Math.random() * 60) + 20; // Random increment 20-80
+                            const newValue = currentValue + increment; // No upper limit - can grow infinitely
+                            return {
+                                ...prev,
+                                [logoKey]: Math.max(newValue, 20) // Ensure minimum is 20
+                            };
+                        });
+                    }, [], index * 0.9);
+                }
+
+                // Highlight animation
+                highlightTimeline
+                    .to(item, {
+                        borderColor: "rgba(0, 0, 0, 0.2)",
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, index * 0.9)
+                    .to(image, {
+                        opacity: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, index * 0.9)
+                    .to(overlay, {
+                        opacity: 0.2,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, index * 0.9);
+                
+                // Animate badge only if it exists
+                if (badge) {
+                    highlightTimeline.to(badge, {
+                        backgroundColor: "#ef4444",
+                        scale: 1.1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, index * 0.9);
+                }
+
+                // Hold highlighted state
+                highlightTimeline.to({}, { duration: 0.6 });
+
+                // Return to normal
+                highlightTimeline
+                    .to(item, {
+                        borderColor: "rgba(0, 0, 0, 0.1)",
+                        duration: 0.3,
+                        ease: "power2.out"
+                    })
+                    .to(image, {
+                        opacity: 0.6,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, "<")
+                    .to(overlay, {
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, "<");
+                
+                // Return badge to normal only if it exists
+                if (badge) {
+                    highlightTimeline.to(badge, {
+                        backgroundColor: "#828282",
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    }, "<");
+                }
+            });
+
+            // Add pause before restarting cycle
+            highlightTimeline.to({}, { duration: 0.25 });
+        }
     }
 
     // Role Rotator Animation
@@ -289,6 +407,112 @@ export default function LandingPage() {
             }
         });
 
+        // Sequential Pulse Animation for Step Circles (including connector arrow)
+        if (pipelineRef.current) {
+            const stepCircles = Array.from(pipelineRef.current.querySelectorAll(".step-circle"));
+            if (stepCircles.length > 0) {
+                // Disable CSS transitions and optimize for GSAP animations
+                stepCircles.forEach((circle) => {
+                    gsap.set(circle, {
+                        transition: "none",
+                        willChange: "transform, box-shadow, border-color",
+                        force3D: true
+                    });
+                });
+
+                // Create a timeline that repeats infinitely
+                const pulseTimeline = gsap.timeline({ 
+                    repeat: -1,
+                    scrollTrigger: {
+                        trigger: pipelineRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                });
+                
+                stepCircles.forEach((circle, index) => {
+                    // Find the icon inside this circle
+                    const icon = circle.querySelector(".step-icon") as HTMLElement;
+                    
+                    // Disable CSS transitions for icon and optimize
+                    if (icon) {
+                        // Get the current color from computed style
+                        const computedStyle = window.getComputedStyle(icon);
+                        const originalColor = computedStyle.color;
+                        
+                        gsap.set(icon, {
+                            transition: "none",
+                            willChange: "color",
+                            force3D: true
+                        });
+
+                        // Ultra-smooth pulse animation: scale up with glow
+                        pulseTimeline.to(circle, {
+                            scale: 1.2,
+                            boxShadow: "0 0 40px rgba(255,255,255,0.4)",
+                            borderColor: "rgba(255,255,255,0.6)",
+                            duration: 0.7,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        })
+                        // Animate icon color to match border color during pulse
+                        .to(icon, {
+                            color: "rgba(255,255,255,0.6)",
+                            duration: 0.7,
+                            ease: "power2.inOut",
+                            immediateRender: false
+                        }, "<")
+                        // Ultra-smooth return to normal
+                        .to(circle, {
+                            scale: 1,
+                            boxShadow: "0 0 0px rgba(255,255,255,0)",
+                            borderColor: "rgba(255,255,255,0.1)",
+                            duration: 0.7,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        })
+                        // Return icon color to original
+                        .to(icon, {
+                            color: originalColor,
+                            duration: 0.7,
+                            ease: "power2.inOut",
+                            immediateRender: false
+                        }, "<");
+                    } else {
+                        // Fallback if no icon found
+                        pulseTimeline.to(circle, {
+                            scale: 1.2,
+                            boxShadow: "0 0 40px rgba(255,255,255,0.4)",
+                            borderColor: "rgba(255,255,255,0.6)",
+                            duration: 0.7,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        })
+                        .to(circle, {
+                            scale: 1,
+                            boxShadow: "0 0 0px rgba(255,255,255,0)",
+                            borderColor: "rgba(255,255,255,0.1)",
+                            duration: 0.7,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        });
+                    }
+                    
+                    // Add smooth delay between pulses (except for the last one)
+                    if (index < stepCircles.length - 1) {
+                        pulseTimeline.to({}, { duration: 0.1 }); // Minimal pause for seamless flow
+                    }
+                });
+                
+                // Add a longer pause before restarting the cycle
+                pulseTimeline.to({}, { duration: 0.8 });
+            }
+        }
+
         // Outcome Section (Bottom part)
         const outcomeSection = pipelineRef.current.querySelector(".outcome-section-container");
         if (outcomeSection) {
@@ -409,7 +633,7 @@ export default function LandingPage() {
       </nav>
 
       {/* 1. Hero / Promise */}
-      <section ref={heroRef} className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 relative overflow-hidden">
+      <section ref={heroRef} className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 relative overflow-hidden" style={{ backgroundColor: 'rgba(244, 249, 253, 1)' }}>
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -456,7 +680,7 @@ export default function LandingPage() {
                     <img 
                         src="/assets/dashboard-preview.png" 
                         alt="GridGPT dashboard preview showing a table of verified leads and an AI agent sidebar" 
-                        className="w-full h-auto rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(255,255,255,0.3)]"
+                        className="w-full h-auto rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(223,246,233,0.4),0_10px_30px_rgba(244,249,253,0.3)]"
                     />
                 </div>
             </Tilt>
@@ -478,27 +702,48 @@ export default function LandingPage() {
                 </div>
 
             {/* Right Column: Logo Grid */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-none mx-auto lg:mx-0">
                 {[
-                    { name: 'LinkedIn', src: '/assets/sources/linkedin.png' },
-                    { name: 'Instagram', src: '/assets/sources/instagram.png' },
-                    { name: 'Facebook', src: '/assets/sources/facebook.png' },
-                    { name: 'X', src: '/assets/sources/x.png' },
-                    { name: 'Email', src: '/assets/sources/mail.png' },
-                    { name: 'IRS', src: '/assets/sources/irs.png' },
-                    { name: 'Google', src: '/assets/sources/google.png' },
-                    { name: 'Custom', src: '/assets/sources/custom-logo.svg' },
-                    { name: 'Database', src: '/assets/sources/database.png' }
+                    { name: 'LinkedIn', src: '/assets/sources/linkedin.png', hasNotifications: true, notificationCount: 85 },
+                    { name: 'Email', src: '/assets/sources/mail.png', hasNotifications: false },
+                    { name: 'IRS', src: '/assets/sources/irs.png', hasNotifications: false },
+                    { name: 'Instagram', src: '/assets/sources/instagram.png', hasNotifications: true, notificationCount: 56 },
+                    { name: 'Google', src: '/assets/sources/google.png', hasNotifications: false },
+                    { name: 'Facebook', src: '/assets/sources/facebook.png', hasNotifications: true, notificationCount: 91 },
+                    { name: 'X', src: '/assets/sources/x.png', hasNotifications: true, notificationCount: 95 },
+                    { name: 'Custom', src: '/assets/sources/custom-logo.svg', hasNotifications: false },
+                    { name: 'Database', src: '/assets/sources/database.png', hasNotifications: false }
                 ].map((logo, i) => (
                     <div 
                         key={i} 
-                        className="logo-grid-item aspect-square bg-white border border-gray-100 rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 group hover:border-gray-200 shadow-sm transition-all duration-300"
+                        data-logo={logo.name}
+                        className="logo-grid-item aspect-square bg-white border border-gray-100 rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 shadow-sm relative overflow-hidden"
                     >
                         <img 
                             src={logo.src} 
                             alt={`${logo.name} data source`} 
-                            className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
+                            className="logo-image w-full h-full object-contain opacity-60"
                         />
+                        {/* Colored overlay */}
+                        <div className={cn(
+                            "logo-overlay absolute inset-0 opacity-0 pointer-events-none mix-blend-multiply",
+                            logo.name === 'LinkedIn' && "bg-[#0077b5]",
+                            logo.name === 'Instagram' && "bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500",
+                            logo.name === 'Facebook' && "bg-[#1877f2]",
+                            logo.name === 'X' && "bg-black",
+                            logo.name === 'Email' && "bg-blue-500",
+                            logo.name === 'Google' && "bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 to-blue-500",
+                            logo.name === 'Database' && "bg-indigo-500",
+                            logo.name === 'Custom' && "bg-purple-500",
+                            logo.name === 'IRS' && "bg-blue-600"
+                        )}></div>
+                        {logo.hasNotifications && (
+                            <div className="logo-badge absolute top-2 right-2 sm:top-3 sm:right-3 min-w-[20px] h-5 sm:min-w-[24px] sm:h-6 px-1.5 sm:px-2 rounded-full flex items-center justify-center shadow-sm z-10 bg-[#828282]">
+                                <span className="text-white text-[9px] sm:text-[10px] font-semibold leading-none whitespace-nowrap">
+                                    {badgeCounts[logo.name as keyof typeof badgeCounts] ?? logo.notificationCount}
+                                </span>
+                            </div>
+                        )}
                 </div>
                 ))}
             </div>
@@ -564,7 +809,7 @@ export default function LandingPage() {
               {/* Vertical Line on Mobile (Dark Mode) */}
               <div className="md:hidden absolute top-[5%] bottom-[5%] left-8 w-px bg-white/10 z-0"></div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative z-10">
+              <div ref={pipelineStepsRef} className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative z-10">
                 {[
                     { step: "01", title: "Define", desc: "Set precise targeting criteria for your ideal prospect.", icon: Target },
                     { step: "02", title: "Scan", desc: "Engine pulls prospects from LinkedIn & business databases.", icon: Search },
@@ -575,8 +820,8 @@ export default function LandingPage() {
                     
                     {/* Node (Dark Mode) */}
                     <div className="relative">
-                      <div className="w-16 h-16 md:w-24 md:h-24 bg-[#111111] rounded-full border border-white/10 flex items-center justify-center z-10 transition-all duration-300 group-hover:border-white/30 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                        <item.icon className="w-6 h-6 md:w-8 md:h-8 text-gray-500 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
+                      <div className="step-circle w-16 h-16 md:w-24 md:h-24 bg-[#111111] rounded-full border border-white/10 flex items-center justify-center z-10 transition-all duration-300 group-hover:border-white/30 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                        <item.icon className="step-icon w-6 h-6 md:w-8 md:h-8 text-gray-500 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
                                        </div>
                       <div className="absolute -top-2 -right-2 bg-[#111111] text-[10px] font-bold px-2 py-0.5 rounded-full text-gray-400 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors">
                         {item.step}
@@ -601,8 +846,8 @@ export default function LandingPage() {
             {/* Visual Connector to Outcome (Dark Mode) */}
             <div className="flex flex-col items-center justify-center my-16 md:my-20">
               <div className="h-16 w-px bg-white/10"></div>
-              <div className="w-8 h-8 rounded-full bg-[#111111] border border-white/10 text-gray-500 flex items-center justify-center -mt-1 z-10">
-                <ArrowDown className="w-4 h-4" />
+              <div className="step-circle w-8 h-8 rounded-full bg-[#111111] border border-white/10 text-gray-500 flex items-center justify-center -mt-1 z-10">
+                <ArrowDown className="step-icon w-4 h-4" />
               </div>
             </div>
 
@@ -856,9 +1101,9 @@ export default function LandingPage() {
 
       {/* 6. Dashboard preview + CTA */}
       <section id="cta" className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
-         <div className="max-w-6xl mx-auto bg-[#111111] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16 text-white overflow-hidden relative">
+         <div className="max-w-6xl mx-auto bg-gradient-to-br from-[#F1F7FE] to-[#D9F5E6] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16 text-[#111111] overflow-hidden relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center relative z-10">
-                <div className="bg-white/10 border border-white/10 rounded-lg sm:rounded-xl aspect-video flex items-center justify-center order-2 lg:order-1 overflow-hidden relative">
+                <div className="bg-white/80 border border-gray-200 rounded-lg sm:rounded-xl aspect-video flex items-center justify-center order-2 lg:order-1 overflow-hidden relative shadow-sm">
                     <div className="w-full" style={{ padding: '61.43% 0 0 0', position: 'relative' }}>
                         <iframe 
                             src="https://player.vimeo.com/video/1148118051?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1" 
@@ -871,12 +1116,12 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div className="space-y-6 sm:space-y-8 order-1 lg:order-2">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight">Your leads are waiting for you. Get to know them!</h2>
-                    <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-[#111111]">Your leads are waiting for you. Get to know them!</h2>
+                    <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                     Sign up for a waitlist. Be the first to boost your outreach game.
                     </p>
                     {formStatus === 'success' ? (
-                        <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-white text-sm sm:text-base animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <div className="bg-white/90 border border-gray-200 rounded-lg p-4 text-[#111111] text-sm sm:text-base animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-sm">
                             Thanks for joining the waitlist! Keep an eye on your inbox for updates.
                         </div>
                     ) : (
@@ -886,8 +1131,8 @@ export default function LandingPage() {
                                     type="email"
                                     placeholder="Enter your email" 
                                     className={cn(
-                                        "bg-white/10 border-white/20 text-white placeholder:text-gray-500 h-11 sm:h-12 flex-1",
-                                        formStatus === 'error' && "border-red-500/50 focus-visible:ring-red-500/50"
+                                        "bg-white border-gray-300 text-[#111111] placeholder:text-gray-500 h-11 sm:h-12 flex-1 focus-visible:ring-gray-400",
+                                        formStatus === 'error' && "border-red-500 focus-visible:ring-red-500"
                                     )}
                                     value={email}
                                     onChange={(e) => {
@@ -900,18 +1145,18 @@ export default function LandingPage() {
                                 <Button 
                                     type="submit"
                                     disabled={formStatus === 'submitting'}
-                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-white text-black hover:bg-gray-100 font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
+                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-[#111111] text-white hover:bg-black font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                                 >
                                     {formStatus === 'submitting' ? (
                                         <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+                                            <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
                                             Joining...
                                         </div>
                                     ) : "Join the waitlist"}
                                 </Button>
                     </div>
                             {formStatus === 'error' && (
-                                <p className="text-red-400 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
+                                <p className="text-red-600 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
                                     Something went wrong. Please try again in a moment.
                                 </p>
                             )}
@@ -951,8 +1196,15 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="order-2 sm:order-1">© 2025 GridGPT. All rights reserved.</div>
             <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
-                <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
-                            </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate('/terms')}
+                  className="text-gray-500 hover:text-gray-900 h-auto p-0 text-xs sm:text-sm"
+                >
+                  Terms
+                </Button>
+            </div>
         </div>
       </footer>
     </div>
