@@ -35,6 +35,22 @@ export default function LandingPage() {
   const [cardOrder, setCardOrder] = useState([0, 1, 2]); // [Front, Middle, Back]
   const [isAnimating, setIsAnimating] = useState(false);
 
+  // Badge counts state for logo notifications
+  const [badgeCounts, setBadgeCounts] = useState({
+    LinkedIn: 85,
+    Instagram: 56,
+    Facebook: 91,
+    X: 95
+  });
+  const badgeCountsRef = useRef(badgeCounts);
+  const setBadgeCountsRef = useRef(setBadgeCounts);
+
+  // Keep refs in sync with state
+  useEffect(() => {
+    badgeCountsRef.current = badgeCounts;
+    setBadgeCountsRef.current = setBadgeCounts;
+  }, [badgeCounts]);
+
   // Form state for the CTA section
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -163,6 +179,105 @@ export default function LandingPage() {
             { scale: 1, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.7)" },
             "-=0.4"
         );
+
+        // Auto-animation: highlight each logo item one at a time
+        const logoItems = contextRef.current.querySelectorAll(".logo-grid-item");
+        if (logoItems.length > 0) {
+            const highlightTimeline = gsap.timeline({
+                repeat: -1,
+                scrollTrigger: {
+                    trigger: contextRef.current,
+                    start: "top 75%",
+                    toggleActions: "play none none none"
+                }
+            });
+
+            logoItems.forEach((item, index) => {
+                const image = item.querySelector(".logo-image") as HTMLElement;
+                const overlay = item.querySelector(".logo-overlay") as HTMLElement;
+                const badge = item.querySelector(".logo-badge") as HTMLElement;
+                const logoName = item.getAttribute("data-logo");
+
+                // Increment badge count when highlighting (only if badge exists and logoName is valid)
+                if (badge && logoName && logoName in badgeCountsRef.current) {
+                    highlightTimeline.call(() => {
+                        setBadgeCountsRef.current(prev => {
+                            const logoKey = logoName as keyof typeof prev;
+                            if (!(logoKey in prev)) return prev;
+                            const currentValue = prev[logoKey];
+                            const increment = Math.floor(Math.random() * 60) + 20; // Random increment 20-80
+                            const newValue = currentValue + increment; // No upper limit - can grow infinitely
+                            return {
+                                ...prev,
+                                [logoKey]: Math.max(newValue, 20) // Ensure minimum is 20
+                            };
+                        });
+                    }, [], index * 1.8);
+                }
+
+                // Highlight animation
+                highlightTimeline
+                    .to(item, {
+                        borderColor: "rgba(0, 0, 0, 0.2)",
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, index * 1.8)
+                    .to(image, {
+                        opacity: 1,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, index * 1.8)
+                    .to(overlay, {
+                        opacity: 0.2,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, index * 1.8);
+                
+                // Animate badge only if it exists
+                if (badge) {
+                    highlightTimeline.to(badge, {
+                        backgroundColor: "#ef4444",
+                        scale: 1.1,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, index * 1.8);
+                }
+
+                // Hold highlighted state
+                highlightTimeline.to({}, { duration: 1.2 });
+
+                // Return to normal
+                highlightTimeline
+                    .to(item, {
+                        borderColor: "rgba(0, 0, 0, 0.1)",
+                        duration: 0.5,
+                        ease: "power2.out"
+                    })
+                    .to(image, {
+                        opacity: 0.6,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, "<")
+                    .to(overlay, {
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, "<");
+                
+                // Return badge to normal only if it exists
+                if (badge) {
+                    highlightTimeline.to(badge, {
+                        backgroundColor: "#828282",
+                        scale: 1,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    }, "<");
+                }
+            });
+
+            // Add pause before restarting cycle
+            highlightTimeline.to({}, { duration: 0.5 });
+        }
     }
 
     // Role Rotator Animation
@@ -585,27 +700,48 @@ export default function LandingPage() {
                 </div>
 
             {/* Right Column: Logo Grid */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-none mx-auto lg:mx-0">
                 {[
-                    { name: 'LinkedIn', src: '/assets/sources/linkedin.png' },
-                    { name: 'Instagram', src: '/assets/sources/instagram.png' },
-                    { name: 'Facebook', src: '/assets/sources/facebook.png' },
-                    { name: 'X', src: '/assets/sources/x.png' },
-                    { name: 'Email', src: '/assets/sources/mail.png' },
-                    { name: 'IRS', src: '/assets/sources/irs.png' },
-                    { name: 'Google', src: '/assets/sources/google.png' },
-                    { name: 'Custom', src: '/assets/sources/custom-logo.svg' },
-                    { name: 'Database', src: '/assets/sources/database.png' }
+                    { name: 'LinkedIn', src: '/assets/sources/linkedin.png', hasNotifications: true, notificationCount: 85 },
+                    { name: 'Email', src: '/assets/sources/mail.png', hasNotifications: false },
+                    { name: 'IRS', src: '/assets/sources/irs.png', hasNotifications: false },
+                    { name: 'Instagram', src: '/assets/sources/instagram.png', hasNotifications: true, notificationCount: 56 },
+                    { name: 'Google', src: '/assets/sources/google.png', hasNotifications: false },
+                    { name: 'Facebook', src: '/assets/sources/facebook.png', hasNotifications: true, notificationCount: 91 },
+                    { name: 'X', src: '/assets/sources/x.png', hasNotifications: true, notificationCount: 95 },
+                    { name: 'Custom', src: '/assets/sources/custom-logo.svg', hasNotifications: false },
+                    { name: 'Database', src: '/assets/sources/database.png', hasNotifications: false }
                 ].map((logo, i) => (
                     <div 
                         key={i} 
-                        className="logo-grid-item aspect-square bg-white border border-gray-100 rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 group hover:border-gray-200 shadow-sm transition-all duration-300"
+                        data-logo={logo.name}
+                        className="logo-grid-item aspect-square bg-white border border-gray-100 rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8 shadow-sm relative overflow-hidden"
                     >
                         <img 
                             src={logo.src} 
                             alt={`${logo.name} data source`} 
-                            className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity" 
+                            className="logo-image w-full h-full object-contain opacity-60"
                         />
+                        {/* Colored overlay */}
+                        <div className={cn(
+                            "logo-overlay absolute inset-0 opacity-0 pointer-events-none mix-blend-multiply",
+                            logo.name === 'LinkedIn' && "bg-[#0077b5]",
+                            logo.name === 'Instagram' && "bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500",
+                            logo.name === 'Facebook' && "bg-[#1877f2]",
+                            logo.name === 'X' && "bg-black",
+                            logo.name === 'Email' && "bg-blue-500",
+                            logo.name === 'Google' && "bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 to-blue-500",
+                            logo.name === 'Database' && "bg-indigo-500",
+                            logo.name === 'Custom' && "bg-purple-500",
+                            logo.name === 'IRS' && "bg-blue-600"
+                        )}></div>
+                        {logo.hasNotifications && (
+                            <div className="logo-badge absolute top-2 right-2 sm:top-3 sm:right-3 min-w-[20px] h-5 sm:min-w-[24px] sm:h-6 px-1.5 sm:px-2 rounded-full flex items-center justify-center shadow-sm z-10 bg-[#828282]">
+                                <span className="text-white text-[9px] sm:text-[10px] font-semibold leading-none whitespace-nowrap">
+                                    {badgeCounts[logo.name as keyof typeof badgeCounts] ?? logo.notificationCount}
+                                </span>
+                            </div>
+                        )}
                 </div>
                 ))}
             </div>

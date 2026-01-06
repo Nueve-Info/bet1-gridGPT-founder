@@ -84,3 +84,44 @@
 .animate-pulse-line {
   animation: pulse-line 3s infinite linear;
 }
+
+/* Logo grid hover animations */
+.logo-grid-item img {
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.logo-grid-item[data-logo="LinkedIn"]:hover img {
+  filter: hue-rotate(200deg) saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="Instagram"]:hover img {
+  filter: hue-rotate(280deg) saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="Facebook"]:hover img {
+  filter: hue-rotate(220deg) saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="X"]:hover img {
+  filter: saturate(1.5) brightness(0.9);
+}
+
+.logo-grid-item[data-logo="Email"]:hover img {
+  filter: hue-rotate(200deg) saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="IRS"]:hover img {
+  filter: hue-rotate(180deg) saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="Google"]:hover img {
+  filter: saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="Custom"]:hover img {
+  filter: hue-rotate(60deg) saturate(1.5) brightness(1.1);
+}
+
+.logo-grid-item[data-logo="Database"]:hover img {
+  filter: hue-rotate(240deg) saturate(1.5) brightness(1.1);
+}
