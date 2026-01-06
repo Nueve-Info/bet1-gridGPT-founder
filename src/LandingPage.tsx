@@ -1099,9 +1099,9 @@ export default function LandingPage() {
 
       {/* 6. Dashboard preview + CTA */}
       <section id="cta" className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
-         <div className="max-w-6xl mx-auto bg-[#111111] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16 text-white overflow-hidden relative">
+         <div className="max-w-6xl mx-auto bg-gradient-to-br from-[#F1F7FE] to-[#D9F5E6] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16 text-[#111111] overflow-hidden relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center relative z-10">
-                <div className="bg-white/10 border border-white/10 rounded-lg sm:rounded-xl aspect-video flex items-center justify-center order-2 lg:order-1 overflow-hidden relative">
+                <div className="bg-white/80 border border-gray-200 rounded-lg sm:rounded-xl aspect-video flex items-center justify-center order-2 lg:order-1 overflow-hidden relative shadow-sm">
                     <div className="w-full" style={{ padding: '61.43% 0 0 0', position: 'relative' }}>
                         <iframe 
                             src="https://player.vimeo.com/video/1148118051?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1" 
@@ -1114,12 +1114,12 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div className="space-y-6 sm:space-y-8 order-1 lg:order-2">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight">Your leads are waiting for you. Get to know them!</h2>
-                    <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-[#111111]">Your leads are waiting for you. Get to know them!</h2>
+                    <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                     Sign up for a waitlist. Be the first to boost your outreach game.
                     </p>
                     {formStatus === 'success' ? (
-                        <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-white text-sm sm:text-base animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <div className="bg-white/90 border border-gray-200 rounded-lg p-4 text-[#111111] text-sm sm:text-base animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-sm">
                             Thanks for joining the waitlist! Keep an eye on your inbox for updates.
                         </div>
                     ) : (
@@ -1129,8 +1129,8 @@ export default function LandingPage() {
                                     type="email"
                                     placeholder="Enter your email" 
                                     className={cn(
-                                        "bg-white/10 border-white/20 text-white placeholder:text-gray-500 h-11 sm:h-12 flex-1",
-                                        formStatus === 'error' && "border-red-500/50 focus-visible:ring-red-500/50"
+                                        "bg-white border-gray-300 text-[#111111] placeholder:text-gray-500 h-11 sm:h-12 flex-1 focus-visible:ring-gray-400",
+                                        formStatus === 'error' && "border-red-500 focus-visible:ring-red-500"
                                     )}
                                     value={email}
                                     onChange={(e) => {
@@ -1143,18 +1143,18 @@ export default function LandingPage() {
                                 <Button 
                                     type="submit"
                                     disabled={formStatus === 'submitting'}
-                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-white text-black hover:bg-gray-100 font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
+                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-[#111111] text-white hover:bg-black font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                                 >
                                     {formStatus === 'submitting' ? (
                                         <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+                                            <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
                                             Joining...
                                         </div>
                                     ) : "Join the waitlist"}
                                 </Button>
                     </div>
                             {formStatus === 'error' && (
-                                <p className="text-red-400 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
+                                <p className="text-red-600 text-xs sm:text-sm animate-in fade-in slide-in-from-top-1">
                                     Something went wrong. Please try again in a moment.
                                 </p>
                             )}
