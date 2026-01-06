@@ -214,55 +214,55 @@ export default function LandingPage() {
                                 [logoKey]: Math.max(newValue, 20) // Ensure minimum is 20
                             };
                         });
-                    }, [], index * 1.8);
+                    }, [], index * 0.9);
                 }
 
                 // Highlight animation
                 highlightTimeline
                     .to(item, {
                         borderColor: "rgba(0, 0, 0, 0.2)",
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
-                    }, index * 1.8)
+                    }, index * 0.9)
                     .to(image, {
                         opacity: 1,
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
-                    }, index * 1.8)
+                    }, index * 0.9)
                     .to(overlay, {
                         opacity: 0.2,
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
-                    }, index * 1.8);
+                    }, index * 0.9);
                 
                 // Animate badge only if it exists
                 if (badge) {
                     highlightTimeline.to(badge, {
                         backgroundColor: "#ef4444",
                         scale: 1.1,
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
-                    }, index * 1.8);
+                    }, index * 0.9);
                 }
 
                 // Hold highlighted state
-                highlightTimeline.to({}, { duration: 1.2 });
+                highlightTimeline.to({}, { duration: 0.6 });
 
                 // Return to normal
                 highlightTimeline
                     .to(item, {
                         borderColor: "rgba(0, 0, 0, 0.1)",
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
                     })
                     .to(image, {
                         opacity: 0.6,
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
                     }, "<")
                     .to(overlay, {
                         opacity: 0,
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
                     }, "<");
                 
@@ -271,14 +271,14 @@ export default function LandingPage() {
                     highlightTimeline.to(badge, {
                         backgroundColor: "#828282",
                         scale: 1,
-                        duration: 0.5,
+                        duration: 0.3,
                         ease: "power2.out"
                     }, "<");
                 }
             });
 
             // Add pause before restarting cycle
-            highlightTimeline.to({}, { duration: 0.5 });
+            highlightTimeline.to({}, { duration: 0.25 });
         }
     }
 
@@ -451,7 +451,7 @@ export default function LandingPage() {
                             scale: 1.2,
                             boxShadow: "0 0 40px rgba(255,255,255,0.4)",
                             borderColor: "rgba(255,255,255,0.6)",
-                            duration: 1.4,
+                            duration: 0.7,
                             ease: "power2.inOut",
                             force3D: true,
                             immediateRender: false
@@ -459,7 +459,7 @@ export default function LandingPage() {
                         // Animate icon color to match border color during pulse
                         .to(icon, {
                             color: "rgba(255,255,255,0.6)",
-                            duration: 1.4,
+                            duration: 0.7,
                             ease: "power2.inOut",
                             immediateRender: false
                         }, "<")
@@ -468,7 +468,7 @@ export default function LandingPage() {
                             scale: 1,
                             boxShadow: "0 0 0px rgba(255,255,255,0)",
                             borderColor: "rgba(255,255,255,0.1)",
-                            duration: 1.4,
+                            duration: 0.7,
                             ease: "power2.inOut",
                             force3D: true,
                             immediateRender: false
@@ -476,7 +476,7 @@ export default function LandingPage() {
                         // Return icon color to original
                         .to(icon, {
                             color: originalColor,
-                            duration: 1.4,
+                            duration: 0.7,
                             ease: "power2.inOut",
                             immediateRender: false
                         }, "<");
@@ -486,7 +486,7 @@ export default function LandingPage() {
                             scale: 1.2,
                             boxShadow: "0 0 40px rgba(255,255,255,0.4)",
                             borderColor: "rgba(255,255,255,0.6)",
-                            duration: 1.4,
+                            duration: 0.7,
                             ease: "power2.inOut",
                             force3D: true,
                             immediateRender: false
@@ -495,7 +495,7 @@ export default function LandingPage() {
                             scale: 1,
                             boxShadow: "0 0 0px rgba(255,255,255,0)",
                             borderColor: "rgba(255,255,255,0.1)",
-                            duration: 1.4,
+                            duration: 0.7,
                             ease: "power2.inOut",
                             force3D: true,
                             immediateRender: false
@@ -504,12 +504,12 @@ export default function LandingPage() {
                     
                     // Add smooth delay between pulses (except for the last one)
                     if (index < stepCircles.length - 1) {
-                        pulseTimeline.to({}, { duration: 0.2 }); // Minimal pause for seamless flow
+                        pulseTimeline.to({}, { duration: 0.1 }); // Minimal pause for seamless flow
                     }
                 });
                 
                 // Add a longer pause before restarting the cycle
-                pulseTimeline.to({}, { duration: 2 });
+                pulseTimeline.to({}, { duration: 0.8 });
             }
         }
 
