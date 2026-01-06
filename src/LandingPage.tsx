@@ -1,5 +1,6 @@
 // import React from 'react';
 import { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Tick02Icon, Cancel01Icon, Database01Icon, Linkedin01Icon, Facebook01Icon, NoteEditIcon } from 'hugeicons-react';
 import { Search, Filter, UserCheck, Play, CheckCircle2, Target, ArrowDown, Star } from 'lucide-react';
 import { Button } from './components/ui/button';
@@ -16,6 +17,7 @@ import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
+  const navigate = useNavigate();
   const stepsRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const featuresRef = useRef<HTMLElement>(null);
@@ -1194,8 +1196,15 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="order-2 sm:order-1">© 2025 GridGPT. All rights reserved.</div>
             <div className="flex gap-4 sm:gap-6 order-1 sm:order-2">
-                <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
-                            </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate('/terms')}
+                  className="text-gray-500 hover:text-gray-900 h-auto p-0 text-xs sm:text-sm"
+                >
+                  Terms
+                </Button>
+            </div>
         </div>
       </footer>
     </div>
