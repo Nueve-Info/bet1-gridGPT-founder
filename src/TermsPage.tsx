@@ -201,7 +201,7 @@ export default function TermsPage() {
                     If you have any questions about this Privacy Policy or our data practices, please contact us:
                   </p>
                   <ul className="list-none pl-0 mt-4 space-y-2">
-                    <li>Email: <a href="mailto:support@gridgpt.com" className="text-[#111111] underline">support@gridgpt.com</a></li>
+                    <li>Email: <a href="mailto:info@nueve.design" className="text-[#111111] underline">info@nueve.design</a></li>
                     <li>Website: <a href="https://gridgpt.tech" className="text-[#111111] underline">https://gridgpt.tech</a></li>
                   </ul>
                 </section>
