@@ -25,6 +25,7 @@ export default function LandingPage() {
   const contextRef = useRef<HTMLElement>(null);
   const engineRef = useRef<HTMLElement>(null);
   const pipelineRef = useRef<HTMLElement>(null);
+  const pipelineStepsRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLElement>(null);
   const introRef = useRef<HTMLElement>(null);
   const [count, setCount] = useState(0);
@@ -289,6 +290,112 @@ export default function LandingPage() {
             }
         });
 
+        // Sequential Pulse Animation for Step Circles (including connector arrow)
+        if (pipelineRef.current) {
+            const stepCircles = Array.from(pipelineRef.current.querySelectorAll(".step-circle"));
+            if (stepCircles.length > 0) {
+                // Disable CSS transitions and optimize for GSAP animations
+                stepCircles.forEach((circle) => {
+                    gsap.set(circle, {
+                        transition: "none",
+                        willChange: "transform, box-shadow, border-color",
+                        force3D: true
+                    });
+                });
+
+                // Create a timeline that repeats infinitely
+                const pulseTimeline = gsap.timeline({ 
+                    repeat: -1,
+                    scrollTrigger: {
+                        trigger: pipelineRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                });
+                
+                stepCircles.forEach((circle, index) => {
+                    // Find the icon inside this circle
+                    const icon = circle.querySelector(".step-icon") as HTMLElement;
+                    
+                    // Disable CSS transitions for icon and optimize
+                    if (icon) {
+                        // Get the current color from computed style
+                        const computedStyle = window.getComputedStyle(icon);
+                        const originalColor = computedStyle.color;
+                        
+                        gsap.set(icon, {
+                            transition: "none",
+                            willChange: "color",
+                            force3D: true
+                        });
+
+                        // Ultra-smooth pulse animation: scale up with glow
+                        pulseTimeline.to(circle, {
+                            scale: 1.2,
+                            boxShadow: "0 0 40px rgba(255,255,255,0.4)",
+                            borderColor: "rgba(255,255,255,0.6)",
+                            duration: 1.4,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        })
+                        // Animate icon color to match border color during pulse
+                        .to(icon, {
+                            color: "rgba(255,255,255,0.6)",
+                            duration: 1.4,
+                            ease: "power2.inOut",
+                            immediateRender: false
+                        }, "<")
+                        // Ultra-smooth return to normal
+                        .to(circle, {
+                            scale: 1,
+                            boxShadow: "0 0 0px rgba(255,255,255,0)",
+                            borderColor: "rgba(255,255,255,0.1)",
+                            duration: 1.4,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        })
+                        // Return icon color to original
+                        .to(icon, {
+                            color: originalColor,
+                            duration: 1.4,
+                            ease: "power2.inOut",
+                            immediateRender: false
+                        }, "<");
+                    } else {
+                        // Fallback if no icon found
+                        pulseTimeline.to(circle, {
+                            scale: 1.2,
+                            boxShadow: "0 0 40px rgba(255,255,255,0.4)",
+                            borderColor: "rgba(255,255,255,0.6)",
+                            duration: 1.4,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        })
+                        .to(circle, {
+                            scale: 1,
+                            boxShadow: "0 0 0px rgba(255,255,255,0)",
+                            borderColor: "rgba(255,255,255,0.1)",
+                            duration: 1.4,
+                            ease: "power2.inOut",
+                            force3D: true,
+                            immediateRender: false
+                        });
+                    }
+                    
+                    // Add smooth delay between pulses (except for the last one)
+                    if (index < stepCircles.length - 1) {
+                        pulseTimeline.to({}, { duration: 0.2 }); // Minimal pause for seamless flow
+                    }
+                });
+                
+                // Add a longer pause before restarting the cycle
+                pulseTimeline.to({}, { duration: 2 });
+            }
+        }
+
         // Outcome Section (Bottom part)
         const outcomeSection = pipelineRef.current.querySelector(".outcome-section-container");
         if (outcomeSection) {
@@ -409,7 +516,7 @@ export default function LandingPage() {
       </nav>
 
       {/* 1. Hero / Promise */}
-      <section ref={heroRef} className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 relative overflow-hidden">
+      <section ref={heroRef} className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 relative overflow-hidden" style={{ backgroundColor: 'rgba(244, 249, 253, 1)' }}>
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -456,7 +563,7 @@ export default function LandingPage() {
                     <img 
                         src="/assets/dashboard-preview.png" 
                         alt="GridGPT dashboard preview showing a table of verified leads and an AI agent sidebar" 
-                        className="w-full h-auto rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(255,255,255,0.3)]"
+                        className="w-full h-auto rounded-xl border border-white/20 shadow-[0_20px_50px_rgba(223,246,233,0.4),0_10px_30px_rgba(244,249,253,0.3)]"
                     />
                 </div>
             </Tilt>
@@ -564,7 +671,7 @@ export default function LandingPage() {
               {/* Vertical Line on Mobile (Dark Mode) */}
               <div className="md:hidden absolute top-[5%] bottom-[5%] left-8 w-px bg-white/10 z-0"></div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative z-10">
+              <div ref={pipelineStepsRef} className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative z-10">
                 {[
                     { step: "01", title: "Define", desc: "Set precise targeting criteria for your ideal prospect.", icon: Target },
                     { step: "02", title: "Scan", desc: "Engine pulls prospects from LinkedIn & business databases.", icon: Search },
@@ -575,8 +682,8 @@ export default function LandingPage() {
                     
                     {/* Node (Dark Mode) */}
                     <div className="relative">
-                      <div className="w-16 h-16 md:w-24 md:h-24 bg-[#111111] rounded-full border border-white/10 flex items-center justify-center z-10 transition-all duration-300 group-hover:border-white/30 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                        <item.icon className="w-6 h-6 md:w-8 md:h-8 text-gray-500 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
+                      <div className="step-circle w-16 h-16 md:w-24 md:h-24 bg-[#111111] rounded-full border border-white/10 flex items-center justify-center z-10 transition-all duration-300 group-hover:border-white/30 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                        <item.icon className="step-icon w-6 h-6 md:w-8 md:h-8 text-gray-500 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
                                        </div>
                       <div className="absolute -top-2 -right-2 bg-[#111111] text-[10px] font-bold px-2 py-0.5 rounded-full text-gray-400 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors">
                         {item.step}
@@ -601,8 +708,8 @@ export default function LandingPage() {
             {/* Visual Connector to Outcome (Dark Mode) */}
             <div className="flex flex-col items-center justify-center my-16 md:my-20">
               <div className="h-16 w-px bg-white/10"></div>
-              <div className="w-8 h-8 rounded-full bg-[#111111] border border-white/10 text-gray-500 flex items-center justify-center -mt-1 z-10">
-                <ArrowDown className="w-4 h-4" />
+              <div className="step-circle w-8 h-8 rounded-full bg-[#111111] border border-white/10 text-gray-500 flex items-center justify-center -mt-1 z-10">
+                <ArrowDown className="step-icon w-4 h-4" />
               </div>
             </div>
 
