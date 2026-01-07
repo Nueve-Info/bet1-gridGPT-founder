@@ -5,4 +5,9 @@ declare module '@gridGPT-assets/*' {
   export default value;
 }
 
+// Google Tag Manager dataLayer
+interface Window {
+  dataLayer?: Array<Record<string, any>>;
+}
+
 
