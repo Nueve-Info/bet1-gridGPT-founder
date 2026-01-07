@@ -61,6 +61,14 @@ export default function LandingPage() {
     e.preventDefault();
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       setFormStatus('error');
+      // Track validation error
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        window.dataLayer.push({
+          event: "waitlist_signup_error",
+          form_id: "waitlist_cta",
+          error_type: "validation"
+        });
+      }
       return;
     }
 
@@ -87,8 +95,26 @@ export default function LandingPage() {
 
       setFormStatus('success');
       setEmail('');
+      
+      // Track success event
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        window.dataLayer.push({
+          event: "waitlist_signup_success",
+          lead_type: "waitlist",
+          form_id: "waitlist_cta"
+        });
+      }
     } catch (error) {
       setFormStatus('error');
+      
+      // Track error event
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        window.dataLayer.push({
+          event: "waitlist_signup_error",
+          form_id: "waitlist_cta",
+          error_type: "network"
+        });
+      }
     }
   };
 
@@ -625,6 +651,9 @@ export default function LandingPage() {
                     size="sm" 
                     className="bg-[#111111] text-white hover:bg-black/90 text-xs sm:text-sm px-3 sm:px-4 transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                     onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+                    data-gtm="cta_waitlist"
+                    data-cta-type="waitlist"
+                    data-cta-placement="nav"
                 >
                     Join the waitlist
                 </Button>
@@ -657,6 +686,9 @@ export default function LandingPage() {
                 <Button 
                     className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#111111] text-white hover:bg-black/90 rounded-md w-full sm:w-auto transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-lg hover:shadow-black/20"
                     onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+                    data-gtm="cta_waitlist"
+                    data-cta-type="waitlist"
+                    data-cta-placement="hero"
                 >
                     Join the waitlist
                 </Button>
@@ -902,6 +934,9 @@ export default function LandingPage() {
                     variant="secondary" 
                     className="h-12 px-8 text-base bg-white text-black hover:bg-gray-100 border-0 transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
                     onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+                    data-gtm="cta_waitlist"
+                    data-cta-type="waitlist"
+                    data-cta-placement="pipeline"
                   >
                     Get Started
                   </Button>
@@ -1125,7 +1160,13 @@ export default function LandingPage() {
                             Thanks for joining the waitlist! Keep an eye on your inbox for updates.
                         </div>
                     ) : (
-                        <form onSubmit={handleWaitlistSubmit} className="space-y-4">
+                        <form 
+                            onSubmit={handleWaitlistSubmit} 
+                            className="space-y-4"
+                            data-gtm="waitlist_form"
+                            data-form-id="waitlist_cta"
+                            data-form-placement="cta_section"
+                        >
                     <div className="flex flex-col sm:flex-row gap-3">
                                 <Input 
                                     type="email"
@@ -1141,11 +1182,13 @@ export default function LandingPage() {
                                     }}
                                     required
                                     disabled={formStatus === 'submitting'}
+                                    data-gtm="waitlist_email"
                                 />
                                 <Button 
                                     type="submit"
                                     disabled={formStatus === 'submitting'}
                                     className="h-11 sm:h-12 px-6 sm:px-8 bg-[#111111] text-white hover:bg-black font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
+                                    data-gtm="waitlist_submit"
                                 >
                                     {formStatus === 'submitting' ? (
                                         <div className="flex items-center gap-2">
