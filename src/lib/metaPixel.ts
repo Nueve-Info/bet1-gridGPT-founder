@@ -10,34 +10,17 @@ let pixelLoaded = false;
 let pixelLoading: Promise<void> | null = null;
 let pixelRevoked = false;
 
-// Type for fbq function
-type FbqFunction = {
-  (...args: unknown[]): void;
-  callMethod?: (...args: unknown[]) => void;
-  queue: unknown[];
-  push: (...args: unknown[]) => void;
-  loaded: boolean;
-  version: string;
-};
-
-declare global {
-  interface Window {
-    fbq: FbqFunction;
-    _fbq: FbqFunction;
-  }
-}
-
 /**
  * Bootstrap the fbq function (without loading the actual script yet)
  */
 function bootstrapFbq(): void {
   if (window.fbq) return;
 
-  const fbq: FbqFunction = function (...args: unknown[]) {
-    if (fbq.callMethod) {
-      fbq.callMethod(...args);
+  const fbq = function (...args: unknown[]) {
+    if ((fbq as FbqFunction).callMethod) {
+      (fbq as FbqFunction).callMethod!(...args);
     } else {
-      fbq.queue.push(args);
+      (fbq as FbqFunction).queue.push(args);
     }
   } as FbqFunction;
 
@@ -82,9 +65,11 @@ export function loadMetaPixel(): Promise<void> {
         pixelRevoked = false;
 
         // Grant consent, init, and track PageView
-        window.fbq('consent', 'grant');
-        window.fbq('init', PIXEL_ID);
-        window.fbq('track', 'PageView');
+        if (window.fbq) {
+          window.fbq('consent', 'grant');
+          window.fbq('init', PIXEL_ID);
+          window.fbq('track', 'PageView');
+        }
 
         console.info('[MetaPixel] Pixel loaded and initialized');
         resolve();

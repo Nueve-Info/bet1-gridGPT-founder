@@ -82,10 +82,3 @@ export function pushToDataLayer(event: Record<string, unknown>): void {
   window.dataLayer.push(event);
 }
 
-// Type augmentation for dataLayer
-declare global {
-  interface Window {
-    dataLayer: unknown[];
-  }
-}
-

@@ -124,21 +124,16 @@ export function writeConsent(consent: Omit<ConsentState, 'necessary' | 'version'
 // Google Consent Mode v2 Integration
 // ─────────────────────────────────────────────────────────────────────────────
 
-declare global {
-  interface Window {
-    dataLayer: unknown[];
-    gtag: (...args: unknown[]) => void;
-  }
-}
-
 /**
  * Ensure gtag function is available (should already be defined in index.html)
  */
 function ensureGtag(): void {
-  window.dataLayer = window.dataLayer || [];
+  if (!window.dataLayer) {
+    window.dataLayer = [];
+  }
   if (typeof window.gtag !== 'function') {
     window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer.push(args);
+      window.dataLayer.push({ args });
     };
   }
 }
