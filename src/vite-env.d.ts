@@ -8,6 +8,7 @@ declare module '@gridGPT-assets/*' {
 // Google Tag Manager dataLayer
 interface Window {
   dataLayer?: Array<Record<string, any>>;
+  fbq?: (action: string, event: string, params?: Record<string, any>) => void;
 }
 
 
