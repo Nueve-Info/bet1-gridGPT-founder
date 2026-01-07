@@ -10,6 +10,7 @@ import { Input } from './components/ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/ui/accordion';
 import { Tilt } from './components/ui/tilt';
 import { cn } from './lib/utils';
+import { openCookieSettings } from './components/cookies/CookieConsent';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -1256,6 +1257,14 @@ export default function LandingPage() {
                   className="text-gray-500 hover:text-gray-900 h-auto p-0 text-xs sm:text-sm"
                 >
                   Terms
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => openCookieSettings()}
+                  className="text-gray-500 hover:text-gray-900 h-auto p-0 text-xs sm:text-sm"
+                >
+                  Cookie Settings
                 </Button>
             </div>
         </div>
