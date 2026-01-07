@@ -1195,7 +1195,7 @@ export default function LandingPage() {
                                             <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
                                             Joining...
                                         </div>
-                                    ) : "Join the waitlist"}
+                                    ) : "Join the early list"}
                                 </Button>
                     </div>
                             {formStatus === 'error' && (
