@@ -56,10 +56,12 @@ export default function LandingPage() {
   // Form state for the CTA section
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !/^\S+@\S+\.\S+$/.test(trimmedEmail)) {
       setFormStatus('error');
       // Track validation error
       if (typeof window !== 'undefined' && window.dataLayer) {
@@ -87,7 +89,7 @@ export default function LandingPage() {
           // and avoid the OPTIONS preflight that is being blocked.
         },
         body: JSON.stringify({
-          email: email,
+          email: trimmedEmail,
           source: 'waitlist',
           timestamp: new Date().toISOString()
         }),
@@ -95,6 +97,12 @@ export default function LandingPage() {
 
       setFormStatus('success');
       setEmail('');
+      
+      // Track Meta Pixel Lead event (only once per session and only if email is valid)
+      if (trimmedEmail && /^\S+@\S+\.\S+$/.test(trimmedEmail) && !sessionStorage.getItem('wl_lead_sent')) {
+        window.fbq?.('track', 'Lead', { content_name: 'Waitlist' });
+        sessionStorage.setItem('wl_lead_sent', '1');
+      }
       
       // Track success event
       if (typeof window !== 'undefined' && window.dataLayer) {
@@ -1180,14 +1188,16 @@ export default function LandingPage() {
                                         setEmail(e.target.value);
                                         if (formStatus === 'error') setFormStatus('idle');
                                     }}
+                                    onFocus={() => setIsInputFocused(true)}
+                                    onBlur={() => setIsInputFocused(false)}
                                     required
                                     disabled={formStatus === 'submitting'}
                                     data-gtm="waitlist_email"
                                 />
                                 <Button 
                                     type="submit"
-                                    disabled={formStatus === 'submitting'}
-                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-[#111111] text-white hover:bg-black font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md"
+                                    disabled={formStatus === 'submitting' || (isInputFocused && (!email.trim() || !/^\S+@\S+\.\S+$/.test(email.trim())))}
+                                    className="h-11 sm:h-12 px-6 sm:px-8 bg-[#111111] text-white hover:bg-black font-medium w-full sm:w-auto whitespace-nowrap transition-all duration-300 hover:scale-[1.05] active:scale-[0.98] shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                                     data-gtm="waitlist_submit"
                                 >
                                     {formStatus === 'submitting' ? (
