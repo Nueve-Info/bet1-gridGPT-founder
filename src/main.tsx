@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './LandingPage.tsx'
 import TermsPage from './TermsPage.tsx'
-import CookieConsent from './components/cookies/CookieConsent.tsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -13,8 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<LandingPage />} />
         <Route path="/terms" element={<TermsPage />} />
       </Routes>
-      {/* Cookie Consent - mounted globally, outside routes */}
-      <CookieConsent />
     </BrowserRouter>
   </React.StrictMode>,
 )
+
