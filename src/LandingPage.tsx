@@ -13,6 +13,7 @@ import { cn } from './lib/utils';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import logoImage from '@gridGPT-assets/logo.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -651,7 +652,7 @@ export default function LandingPage() {
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="flex items-center gap-2 group cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95"
             >
-                <img src="/assets/logo.svg" alt="GridGPT Logo - Scroll to top" className="h-6 sm:h-8 w-auto" />
+                <img src={logoImage} alt="GridGPT Logo - Scroll to top" className="h-6 sm:h-8 w-auto" />
             </button>
             <div className="flex gap-2 sm:gap-4">
                 <Button 
